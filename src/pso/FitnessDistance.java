@@ -1,3 +1,4 @@
+package pso;
 
 public class FitnessDistance implements IFitness{
 
