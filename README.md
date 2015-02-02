@@ -11,10 +11,10 @@ http://www.swarmintelligence.org/tutorials.php
 
 Compile: 
 ```Shell
-javac Init.java
+javac -d bin src/pso/*
 ```
 
 Run:
 ```Shell
-java Init
+java -cp ./bin pso/Init
 ```
