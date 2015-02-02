@@ -9,6 +9,8 @@ This was created following the pseudocode from this tutorial:
 
 http://www.swarmintelligence.org/tutorials.php
 
+###Usage:
+
 Compile: 
 ```Shell
 javac -d bin src/pso/*
