@@ -11,14 +11,14 @@ public class Population {
 	private ArrayList<Particle> particles = new ArrayList<Particle>();
 	private int velMultiplier = 5;
 	private float gBestVal = 9999.9f;
-	private VectorI gBest;
+	private Position gBest;
 	private IFitness fitnessFunction;
 	private boolean drawTails = true;
 	private int size;
-	private VectorI dimension;
+	private Position dimension;
 	
 	public Population (int x, int y, int numParticles, IFitness fitnessFunction, Options options) {
-		this.dimension = new VectorI(x, y);
+		this.dimension = new Position(x, y);
 		this.size = numParticles;
 		this.fitnessFunction = fitnessFunction;
 		for (int i = 0; i < numParticles; i++) {
@@ -41,7 +41,7 @@ public class Population {
 			if (p.getLocalBest() < this.gBestVal) {
 				//new global best
 				this.gBestVal = p.getLocalBest();
-				gBest = new VectorI(p.getLocalBestPosition().x, p.getLocalBestPosition().y);
+				gBest = new Position(p.getLocalBestPosition().x, p.getLocalBestPosition().y);
 			}
 		}
 		//update positions
@@ -94,8 +94,8 @@ public class Population {
 		}
 	}
 	
-	private VectorI getRandomPosition () {
-		return new VectorI (
+	private Position getRandomPosition () {
+		return new Position (
 			//(int) Math.floor(this.width * Math.random()),
 			//(int) Math.floor(this.height * Math.random())
 			(int) Math.floor(this.dimension.x * Math.random()),
@@ -103,8 +103,8 @@ public class Population {
 		);
 	}
 	
-	private VectorD getRandomVelocity () {
-		return new VectorD(
+	private Velocity getRandomVelocity () {
+		return new Velocity(
 			(double) (this.getPosNeg() * (velMultiplier * Math.random())),
 			(double) (this.getPosNeg() * (velMultiplier * Math.random()))
 		);

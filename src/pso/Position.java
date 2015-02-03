@@ -1,16 +1,16 @@
 package pso;
 
-public class VectorI {
+public class Position {
 
 	public int x;
 	public int y;
 	public int z;
 	
-	public VectorI (int x, int y) {
+	public Position (int x, int y) {
 		this.set(x, y);
 	}
 	
-	public VectorI (int x, int y, int z) {
+	public Position (int x, int y, int z) {
 		this.set(x, y, z);
 	}
 	

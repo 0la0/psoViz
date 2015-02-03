@@ -2,24 +2,24 @@ package pso;
 
 public class Particle {
 
-	private VectorI position;
-	private VectorI lastPosition1;
-	private VectorI lastPosition2;
-	private VectorI pBest;
-	private VectorD velocity;
+	private Position position;
+	private Position lastPosition1;
+	private Position lastPosition2;
+	private Position pBest;
+	private Velocity velocity;
 	private float pBestVal = 999999.9f;
 	private IFitness fitnessFunction;
 	private Options options;
 	
-	public Particle (VectorI Vector, VectorD velocity, IFitness fitnessFunction, Options options) {
+	public Particle (Position Vector, Velocity velocity, IFitness fitnessFunction, Options options) {
 		this.position = Vector;
 		this.velocity = velocity;
 		this.fitnessFunction = fitnessFunction;
 		this.options = options;
 		
-		this.pBest = new VectorI(Vector.x, Vector.y);
-		this.lastPosition1 = new VectorI(Vector.x, Vector.y);
-		this.lastPosition2 = new VectorI(Vector.x, Vector.y);
+		this.pBest = new Position(Vector.x, Vector.y);
+		this.lastPosition1 = new Position(Vector.x, Vector.y);
+		this.lastPosition2 = new Position(Vector.x, Vector.y);
 	}
 	
 	public float evaluateFitness () {
@@ -32,7 +32,7 @@ public class Particle {
 		return fitness;
 	}
 	
-	public void update (VectorI gBest) {
+	public void update (Position gBest) {
 		if (gBest == null) {
 			System.out.println("gBest is null, exiting now");
 			System.exit(0);
@@ -73,19 +73,19 @@ public class Particle {
 		return this.pBestVal;
 	}
 	
-	public VectorI getLocalBestPosition () {
+	public Position getLocalBestPosition () {
 		return this.pBest;
 	}
 
-	public VectorI getPosition () {
+	public Position getPosition () {
 		return this.position;
 	}
 	
-	public VectorI getLastPosition1 () {
+	public Position getLastPosition1 () {
 		return this.lastPosition1;
 	}
 	
-	public VectorI getLastPosition2 () {
+	public Position getLastPosition2 () {
 		return this.lastPosition2;
 	}
 	
@@ -93,14 +93,14 @@ public class Particle {
 		this.pBestVal = 999999.9f;
 	}
 	
-	public void setPosition (VectorI position) {
+	public void setPosition (Position position) {
 		//chage to clone
 		this.position = position;
-		this.lastPosition1 = new VectorI(position.x, position.y);
-		this.lastPosition2 = new VectorI(position.x, position.y);
+		this.lastPosition1 = new Position(position.x, position.y);
+		this.lastPosition2 = new Position(position.x, position.y);
 	}
 	
-	public void setVelocity (VectorD velocity) {
+	public void setVelocity (Velocity velocity) {
 		this.velocity = velocity;
 	}
 	

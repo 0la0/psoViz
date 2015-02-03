@@ -1,16 +1,16 @@
 package pso;
 
-public class VectorD {
+public class Velocity {
 	
 	public double x;
 	public double y;
 	public double z;
 	
-	public VectorD (double x, double y) {
+	public Velocity (double x, double y) {
 		this.set(x, y);
 	}
 	
-	public VectorD (double x, double y, double z) {
+	public Velocity (double x, double y, double z) {
 		this.set(x, y, z);
 	}
 	
