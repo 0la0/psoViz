@@ -11,16 +11,14 @@ public class Population {
 	private ArrayList<Particle> particles = new ArrayList<Particle>();
 	private int velMultiplier = 5;
 	private float gBestVal = 9999.9f;
-	private Position gBest;
+	private VectorI gBest;
 	private IFitness fitnessFunction;
 	private boolean drawTails = true;
-	private int width;
-	private int height;
 	private int size;
+	private VectorI dimension;
 	
 	public Population (int x, int y, int numParticles, IFitness fitnessFunction, Options options) {
-		this.width = x;
-		this.height = y;
+		this.dimension = new VectorI(x, y);
 		this.size = numParticles;
 		this.fitnessFunction = fitnessFunction;
 		for (int i = 0; i < numParticles; i++) {
@@ -43,7 +41,7 @@ public class Population {
 			if (p.getLocalBest() < this.gBestVal) {
 				//new global best
 				this.gBestVal = p.getLocalBest();
-				gBest = new Position(p.getLocalBestPosition().x, p.getLocalBestPosition().y);
+				gBest = new VectorI(p.getLocalBestPosition().x, p.getLocalBestPosition().y);
 			}
 		}
 		//update positions
@@ -83,8 +81,10 @@ public class Population {
 	}
 	
 	public void resetPosAndVel () {
-		int newGoalX = (int) Math.floor(this.width * Math.random());
-		int newGoalY = (int) Math.floor(this.height * Math.random());
+		//int newGoalX = (int) Math.floor(this.width * Math.random());
+		//int newGoalY = (int) Math.floor(this.height * Math.random());
+		int newGoalX = (int) Math.floor(this.dimension.x * Math.random());
+		int newGoalY = (int) Math.floor(this.dimension.y * Math.random());
 		this.fitnessFunction.setGoal(newGoalX, newGoalY);
 		this.gBestVal = 9999.9f;
 		for (Particle p : this.particles) {
@@ -94,15 +94,17 @@ public class Population {
 		}
 	}
 	
-	private Position getRandomPosition () {
-		return new Position (
-			(int) Math.floor(this.width * Math.random()),
-			(int) Math.floor(this.height * Math.random())
+	private VectorI getRandomPosition () {
+		return new VectorI (
+			//(int) Math.floor(this.width * Math.random()),
+			//(int) Math.floor(this.height * Math.random())
+			(int) Math.floor(this.dimension.x * Math.random()),
+			(int) Math.floor(this.dimension.y * Math.random())
 		);
 	}
 	
-	private Velocity getRandomVelocity () {
-		return new Velocity(
+	private VectorD getRandomVelocity () {
+		return new VectorD(
 			(double) (this.getPosNeg() * (velMultiplier * Math.random())),
 			(double) (this.getPosNeg() * (velMultiplier * Math.random()))
 		);

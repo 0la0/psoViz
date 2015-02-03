@@ -25,7 +25,7 @@ public class Driver extends JPanel implements MouseListener{
 		this.addMouseListener(this);
 		this.setBackground(new Color(255, 255, 255));
 		this.options = options;
-		p = new Population(width, height, populationSize, fitnessFunction, options);
+		this.p = new Population(width, height, populationSize, fitnessFunction, options);
 		this.timer = new Timer(animationStepTime, new ActionListener() {
 	        public void actionPerformed(ActionEvent evt) {
 	    		iterate();
@@ -41,7 +41,7 @@ public class Driver extends JPanel implements MouseListener{
 		this.iterationCnt++;
 		double meanFitness = p.update();
 		if (meanFitness < this.options.convergenceThresh) {
-			p.resetPosAndVel();
+			this.p.resetPosAndVel();
 			System.out.println("Num steps to convergence: " + this.iterationCnt);
 			this.iterationCnt = 0;
 		}
@@ -51,7 +51,7 @@ public class Driver extends JPanel implements MouseListener{
 	
 	protected void paintComponent (Graphics g) {
 		super.paintComponent(g);
-		p.render((Graphics2D) g); 
+		this.p.render((Graphics2D) g); 
 	}
 	
 	//-------------MOUSE LISTENERS-------------//
@@ -63,7 +63,7 @@ public class Driver extends JPanel implements MouseListener{
 	public void mouseExited(MouseEvent arg0) {}
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		p.resetGoal(arg0.getX(), arg0.getY());
+		this.p.resetGoal(arg0.getX(), arg0.getY());
 	}
 	@Override
 	public void mouseReleased(MouseEvent arg0) {}
