@@ -42,5 +42,20 @@ public class FitnessDistance implements IFitness{
 			return (float) Math.sqrt(x + y + z);
 		}
 	}
+
+	@Override
+	public int getGoalX() {
+		return this.goalX;
+	}
+
+	@Override
+	public int getGoalY() {
+		return this.goalY;
+	}
+
+	@Override
+	public int getGoalZ() {
+		return this.goalZ;
+	}
 	
 }

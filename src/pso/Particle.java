@@ -94,8 +94,10 @@ public class Particle {
 	}
 	
 	public void setPosition (Position position) {
-		//chage to clone
 		this.position = position;
+		//this.lastPosition1 = new Position(position.x, position.y);
+		//this.lastPosition2 = new Position(position.x, position.y);
+		//
 		this.lastPosition1 = new Position(position.x, position.y);
 		this.lastPosition2 = new Position(position.x, position.y);
 	}

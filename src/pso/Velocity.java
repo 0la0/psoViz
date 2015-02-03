@@ -5,12 +5,15 @@ public class Velocity {
 	public double x;
 	public double y;
 	public double z;
+	private int numDimensions;
 	
 	public Velocity (double x, double y) {
+		this.numDimensions = 2;
 		this.set(x, y);
 	}
 	
 	public Velocity (double x, double y, double z) {
+		this.numDimensions = 3;
 		this.set(x, y, z);
 	}
 	
@@ -35,6 +38,10 @@ public class Velocity {
 	
 	public double getZ () {
 		return this.z;
+	}
+	
+	public int getNumDimensions () {
+		return this.numDimensions;
 	}
 
 }

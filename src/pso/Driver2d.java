@@ -1,4 +1,5 @@
 package pso;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,21 +12,23 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 
-public class Driver extends JPanel implements MouseListener{
+public class Driver2d extends JPanel implements MouseListener{
 
 	private Population p;
 	private Timer timer;
 	private int animationStepTime = 33;
 	private IFitness fitnessFunction = new FitnessDistance(255, 255);
 	private int iterationCnt = 0;
-	private int convergenceThresh = 50;
+	//private int convergenceThresh = 50;
 	private Options options;
+	private int goalRadius = 10;
 	
-	public Driver (int width, int height, int populationSize, Options options) {
+	public Driver2d (int width, int height, int populationSize, Options options) {
 		this.addMouseListener(this);
 		this.setBackground(new Color(255, 255, 255));
 		this.options = options;
-		this.p = new Population(width, height, populationSize, fitnessFunction, options);
+		Position size = new Position(width, height);
+		this.p = new Population(size, populationSize, fitnessFunction, options);
 		this.timer = new Timer(animationStepTime, new ActionListener() {
 	        public void actionPerformed(ActionEvent evt) {
 	    		iterate();
@@ -51,7 +54,27 @@ public class Driver extends JPanel implements MouseListener{
 	
 	protected void paintComponent (Graphics g) {
 		super.paintComponent(g);
-		this.p.render((Graphics2D) g); 
+		Graphics2D g2d = (Graphics2D) g;
+		//render goal
+		//System.out.println(this.fitnessFunction.getGoalX() + ", " + this.fitnessFunction.getGoalY());
+		g2d.setColor(new Color(50, 200, 50));
+		g2d.fillOval(
+				this.fitnessFunction.getGoalX() - this.goalRadius, 
+				this.fitnessFunction.getGoalY() - this.goalRadius, 
+				this.goalRadius * 2, this.goalRadius * 2);
+		//render particles
+		g2d.setColor(new Color(50, 50, 50));
+		//this.p.render((Graphics2D) g); 
+		//g2d.setPaint(new Color(0, 0, 0));
+		g2d.setStroke(new BasicStroke(2));
+		for (Particle particle : p.getParticles()) {
+			g.drawLine(
+					particle.getPosition().x, particle.getPosition().y, 
+					particle.getLastPosition1().x, particle.getLastPosition1().y);
+			g.drawLine(
+					particle.getLastPosition1().x, particle.getLastPosition1().y, 
+					particle.getLastPosition2().x, particle.getLastPosition2().y);
+		}
 	}
 	
 	//-------------MOUSE LISTENERS-------------//

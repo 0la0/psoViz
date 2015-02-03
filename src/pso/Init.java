@@ -18,7 +18,7 @@ public class Init {
 		options.speedLimit = 10.0f;
 		
 		Controls c = new Controls(options);
-		Driver swarmDriver = new Driver(w, h, 500, options);
+		Driver2d swarmDriver = new Driver2d(w, h, 500, options);
 		
 		JFrame imgFrame = new JFrame();
 		imgFrame.add(swarmDriver);
