@@ -44,4 +44,11 @@ public class Position {
 		return this.numDimensions;
 	}
 	
+	public Position copy () {
+		if (this.numDimensions == 2)
+			return new Position(this.x, this.y);
+		else
+			return new Position(this.x, this.y, this.z);
+	}
+	
 }

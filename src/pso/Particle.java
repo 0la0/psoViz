@@ -10,16 +10,18 @@ public class Particle {
 	private float pBestVal = 999999.9f;
 	private IFitness fitnessFunction;
 	private Options options;
+	private int numDimensions;
 	
-	public Particle (Position Vector, Velocity velocity, IFitness fitnessFunction, Options options) {
-		this.position = Vector;
+	public Particle (Position position, Velocity velocity, IFitness fitnessFunction, Options options) {
+		this.position = position;
 		this.velocity = velocity;
+		this.numDimensions = position.getNumDimensions();
 		this.fitnessFunction = fitnessFunction;
 		this.options = options;
 		
-		this.pBest = new Position(Vector.x, Vector.y);
-		this.lastPosition1 = new Position(Vector.x, Vector.y);
-		this.lastPosition2 = new Position(Vector.x, Vector.y);
+		this.pBest = position.copy();
+		this.lastPosition1 = position.copy();
+		this.lastPosition2 = position.copy();
 	}
 	
 	public float evaluateFitness () {
@@ -28,6 +30,8 @@ public class Particle {
 			this.pBestVal = fitness;
 			this.pBest.x = this.position.x;
 			this.pBest.y = this.position.y;
+			if (this.numDimensions == 3)
+				this.pBest.z = this.position.z;
 		}
 		return fitness;
 	}
@@ -40,33 +44,45 @@ public class Particle {
 		//v[] = v[] + c1 * rand() * (pbest[] - present[]) + c2 * rand() * (gbest[] - present[])
 		this.velocity.x += (this.options.c1 * Math.random() * (this.pBest.x - this.position.x)) + (this.options.c2 * Math.random() * (gBest.x - this.position.x));
 		this.velocity.y += (this.options.c1 * Math.random() * (this.pBest.y - this.position.y)) + (this.options.c2 * Math.random() * (gBest.y - this.position.y));
+		if (this.numDimensions == 3)
+			this.velocity.z += (this.options.c1 * Math.random() * (this.pBest.z - this.position.z)) + (this.options.c2 * Math.random() * (gBest.z - this.position.z));
 		
 		this.applySpeedLimit();
 		this.updateVector();
 	}
 	
 	private void applySpeedLimit () {
-		if (this.velocity.x > this.options.speedLimit) {
+		if (this.velocity.x > this.options.speedLimit)
 			this.velocity.x = this.options.speedLimit;
-		}
-		else if (this.velocity.x < -this.options.speedLimit) {
+		else if (this.velocity.x < -this.options.speedLimit)
 			this.velocity.x = -this.options.speedLimit;
-		}
-		if (this.velocity.y > this.options.speedLimit) {
+		
+		if (this.velocity.y > this.options.speedLimit)
 			this.velocity.y = this.options.speedLimit;
-		}
-		else if (this.velocity.y < -this.options.speedLimit) {
+		else if (this.velocity.y < -this.options.speedLimit)
 			this.velocity.y = -this.options.speedLimit;
+		
+		if (this.numDimensions == 3) {
+			if (this.velocity.z > this.options.speedLimit)
+				this.velocity.z = this.options.speedLimit;
+			else if (this.velocity.z < -this.options.speedLimit)
+				this.velocity.z = -this.options.speedLimit;
 		}
 	}
 	
 	private void updateVector () {
 		this.lastPosition2.x = this.lastPosition1.x;
 		this.lastPosition2.y = this.lastPosition1.y;
+		if (this.numDimensions == 3)
+			this.lastPosition2.z = this.lastPosition1.z;
 		this.lastPosition1.x = this.position.x;
 		this.lastPosition1.y = this.position.y;
+		if (this.numDimensions == 3)
+			this.lastPosition1.z = this.position.z;
 		this.position.x = (int) Math.floor(this.position.x + this.velocity.x);
 		this.position.y = (int) Math.floor(this.position.y + this.velocity.y);
+		if (this.numDimensions == 3)
+			this.position.z = (int) Math.floor(this.position.z + this.velocity.z);
 	}
 	
 	public float getLocalBest () {
@@ -95,11 +111,8 @@ public class Particle {
 	
 	public void setPosition (Position position) {
 		this.position = position;
-		//this.lastPosition1 = new Position(position.x, position.y);
-		//this.lastPosition2 = new Position(position.x, position.y);
-		//
-		this.lastPosition1 = new Position(position.x, position.y);
-		this.lastPosition2 = new Position(position.x, position.y);
+		this.lastPosition1 = position.copy();
+		this.lastPosition2 = position.copy();
 	}
 	
 	public void setVelocity (Velocity velocity) {

@@ -43,5 +43,12 @@ public class Velocity {
 	public int getNumDimensions () {
 		return this.numDimensions;
 	}
+	
+	public Velocity copy () {
+		if (this.numDimensions == 2)
+			return new Velocity(this.x, this.y);
+		else
+			return new Velocity(this.x, this.y, this.z);
+	}
 
 }
