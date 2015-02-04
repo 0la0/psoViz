@@ -17,7 +17,6 @@ public class Population {
 	public Population (Position canvasSize, int numParticles, IFitness fitnessFunction, Options options) {
 		this.canvasSize = canvasSize;
 		this.numDimensions = this.canvasSize.getNumDimensions();
-		System.out.println("numDims: " + this.numDimensions);
 		this.size = numParticles;
 		this.fitnessFunction = fitnessFunction;
 		for (int i = 0; i < numParticles; i++) {
