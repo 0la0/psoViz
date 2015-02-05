@@ -1,15 +1,13 @@
 Particle Swarm Optimization Visualization
 =================
 
-A Java program for visualizing a basic implementation of the "Particle Swarm Optimization."
+A Java program for visualizing a basic implementation of the [Particle Swarm Optimization"](http://en.wikipedia.org/wiki/Particle_swarm_optimization).
 
-http://en.wikipedia.org/wiki/Particle_swarm_optimization
-
-This was created following the pseudocode from this tutorial:
-
-http://www.swarmintelligence.org/tutorials.php
+The basic algorithm was created from the pseudocode from [this tutorial.](http://www.swarmintelligence.org/tutorials.php).
 
 ###Usage:
+
+To view and interact with the 2D version:
 
 Compile: 
 ```Shell
@@ -20,3 +18,5 @@ Run:
 ```Shell
 java -cp ./bin pso/Init
 ```
+
+The 3D version runs on [lwjgl](http://www.lwjgl.org/).
