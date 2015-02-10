@@ -17,17 +17,19 @@ public class Driver2d extends JPanel implements MouseListener{
 	private Population p;
 	private Timer timer;
 	private int animationStepTime = 33;
-	private IFitness fitnessFunction = new FitnessDistance(255, 255);
+	//private IFitness fitnessFunction = new FitnessDistance(255, 255);
+	private IFitness fitnessFunction = new FitnessDistance(new int[]{255, 255});
 	private int iterationCnt = 0;
 	//private int convergenceThresh = 50;
 	private Options options;
 	private int goalRadius = 10;
+	private int numDimensions;
 	
 	public Driver2d (int width, int height, int populationSize, Options options) {
 		this.addMouseListener(this);
 		this.setBackground(new Color(255, 255, 255));
 		this.options = options;
-		Position size = new Position(width, height);
+		Position size = new Position(new int[]{width, height});
 		this.p = new Population(size, populationSize, fitnessFunction, options);
 		this.timer = new Timer(animationStepTime, new ActionListener() {
 	        public void actionPerformed(ActionEvent evt) {
@@ -56,24 +58,23 @@ public class Driver2d extends JPanel implements MouseListener{
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		//render goal
-		//System.out.println(this.fitnessFunction.getGoalX() + ", " + this.fitnessFunction.getGoalY());
 		g2d.setColor(new Color(50, 200, 50));
 		g2d.fillOval(
-				this.fitnessFunction.getGoalX() - this.goalRadius, 
-				this.fitnessFunction.getGoalY() - this.goalRadius, 
+				this.fitnessFunction.getGoal()[0] - this.goalRadius, 
+				this.fitnessFunction.getGoal()[1] - this.goalRadius, 
 				this.goalRadius * 2, this.goalRadius * 2);
 		//render particles
 		g2d.setColor(new Color(50, 50, 50));
-		//this.p.render((Graphics2D) g); 
-		//g2d.setPaint(new Color(0, 0, 0));
 		g2d.setStroke(new BasicStroke(2));
 		for (Particle particle : p.getParticles()) {
 			g.drawLine(
-					particle.getPosition().x, particle.getPosition().y, 
-					particle.getLastPosition1().x, particle.getLastPosition1().y);
+					particle.getPosition().get()[0], particle.getPosition().get()[1],
+					particle.getLastPosition1().get()[0], particle.getLastPosition1().get()[1]
+			);
 			g.drawLine(
-					particle.getLastPosition1().x, particle.getLastPosition1().y, 
-					particle.getLastPosition2().x, particle.getLastPosition2().y);
+					particle.getLastPosition1().get()[0], particle.getLastPosition1().get()[1],
+					particle.getLastPosition2().get()[0], particle.getLastPosition2().get()[1]
+			);
 		}
 	}
 	
@@ -86,7 +87,7 @@ public class Driver2d extends JPanel implements MouseListener{
 	public void mouseExited(MouseEvent arg0) {}
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		this.p.resetGoal(arg0.getX(), arg0.getY());
+		this.p.resetGoal(new int[]{arg0.getX(), arg0.getY()});
 	}
 	@Override
 	public void mouseReleased(MouseEvent arg0) {}

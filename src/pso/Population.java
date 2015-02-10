@@ -39,11 +39,8 @@ public class Population {
 			if (p.getLocalBest() < this.gBestVal) {
 				//new global best
 				this.gBestVal = p.getLocalBest();
-				if (this.numDimensions == 2)
-					gBest = new Position(p.getLocalBestPosition().x, p.getLocalBestPosition().y);
-				else
-					gBest = new Position(
-							p.getLocalBestPosition().x, p.getLocalBestPosition().y, p.getLocalBestPosition().z);
+				gBest = p.getLocalBestPosition().copy();
+				
 			}
 		}
 		//update positions
@@ -66,16 +63,8 @@ public class Population {
 		}
 	}
 	
-	public void resetGoal (int x, int y) {
-		this.fitnessFunction.setGoal(x, y);
-		this.gBestVal = 9999.9f;
-		for (Particle p : this.particles) {
-			p.reset();
-		}
-	}
-	
-	public void resetGoal (int x, int y, int z) {
-		this.fitnessFunction.setGoal(x, y, z);
+	public void resetGoal (int[] goal) {
+		this.fitnessFunction.setGoal(goal);
 		this.gBestVal = 9999.9f;
 		for (Particle p : this.particles) {
 			p.reset();
@@ -83,15 +72,11 @@ public class Population {
 	}
 	
 	public void resetPosAndVel () {
-		int newGoalX = (int) Math.floor(this.canvasSize.x * Math.random());
-		int newGoalY = (int) Math.floor(this.canvasSize.y * Math.random());
-		if (this.numDimensions == 2) {
-			this.fitnessFunction.setGoal(newGoalX, newGoalY);
+		int[] newGoal = new int[this.numDimensions];
+		for (int i = 0; i < this.numDimensions; i++) {
+			newGoal[i] = (int) (this.canvasSize.get()[i] * Math.random());
 		}
-		else {
-			int newGoalZ = (int) Math.floor(this.canvasSize.z * Math.random());
-			this.fitnessFunction.setGoal(newGoalX, newGoalY, newGoalZ);
-		}
+		this.fitnessFunction.setGoal(newGoal);
 		this.gBestVal = 9999.9f;
 		for (Particle p : this.particles) {
 			p.reset();
@@ -101,31 +86,19 @@ public class Population {
 	}
 	
 	private Position getRandomPosition () {
-		if (this.numDimensions == 2) {
-			return new Position (
-					(int) Math.floor(this.canvasSize.x * Math.random()),
-					(int) Math.floor(this.canvasSize.y * Math.random()));
+		int[] randPos = new int[this.numDimensions]; 
+		for (int i = 0; i < this.numDimensions; i++) {
+			randPos[i] = (int) Math.floor(this.canvasSize.get()[i] * Math.random());
 		}
-		else {
-			return new Position (
-					(int) Math.floor(this.canvasSize.x * Math.random()),
-					(int) Math.floor(this.canvasSize.y * Math.random()),
-					(int) Math.floor(this.canvasSize.z * Math.random()));
-		}
+		return new Position(randPos);
 	}
 	
 	private Velocity getRandomVelocity () {
-		if (this.numDimensions == 2) {
-			return new Velocity(
-					(double) (this.getPosNeg() * (velMultiplier * Math.random())),
-					(double) (this.getPosNeg() * (velMultiplier * Math.random())));
+		double[] velocity = new double[this.numDimensions];
+		for (int i = 0; i < this.numDimensions; i++) {
+			velocity[i] = this.getPosNeg() * velMultiplier * Math.random();
 		}
-		else {
-			return new Velocity(
-					(double) (this.getPosNeg() * (velMultiplier * Math.random())),
-					(double) (this.getPosNeg() * (velMultiplier * Math.random())),
-					(double) (this.getPosNeg() * (velMultiplier * Math.random())));
-		}
+		return new Velocity(velocity);
 	}
 	
 }

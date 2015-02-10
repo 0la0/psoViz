@@ -2,15 +2,9 @@ package pso;
 
 public interface IFitness {
 
-	public void setGoal (int x, int y);
+	public void setGoal (int[] goal);
 	
-	public void setGoal (int x, int y, int z);
-	
-	public int getGoalX ();
-	
-	public int getGoalY ();
-	
-	public int getGoalZ ();
+	public int[] getGoal ();
 	
 	public float calcFitness (Particle p);
 	

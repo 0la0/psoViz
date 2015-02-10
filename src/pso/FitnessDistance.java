@@ -2,60 +2,35 @@ package pso;
 
 public class FitnessDistance implements IFitness{
 
-	private int goalX;
-	private int goalY;
-	private int goalZ;
 	private int numDims;
+	private int[] goal;
 	
-	public FitnessDistance (int x, int y) {
-		this.numDims = 2;
-		this.setGoal(x, y);
-	}
-	
-	public FitnessDistance (int x, int y, int z) {
-		this.numDims = 3;
-		this.setGoal(x, y, z);
-	}
-
-	@Override
-	public void setGoal(int x, int y) {
-		this.goalX = x;
-		this.goalY = y;
-	}
-	
-	@Override
-	public void setGoal(int x, int y, int z) {
-		this.goalX = x;
-		this.goalY = y;
-		this.goalZ = z;
+	public FitnessDistance (int[] goal) {
+		if (goal.length == 0) {
+			System.out.println("goal must have at least one dimension");
+			return;
+		}
+		this.numDims = goal.length;
+		this.setGoal(goal);
 	}
 
 	@Override
 	public float calcFitness(Particle p) {
-		double x = Math.pow(p.getPosition().x - this.goalX, 2);
-		double y = Math.pow(p.getPosition().y - this.goalY, 2);
-		if (numDims == 2) {
-			return (float) Math.sqrt(x + y);	
+		float sum = 0f;
+		for (int i = 0; i < this.numDims; i++) {
+			sum += (float) (Math.pow(p.getPosition().get()[i] - this.goal[i], 2));
 		}
-		else {
-			double z = Math.pow(p.getPosition().z - this.goalZ, 2);
-			return (float) Math.sqrt(x + y + z);
-		}
+		return (float) Math.sqrt(sum);
 	}
 
 	@Override
-	public int getGoalX() {
-		return this.goalX;
+	public void setGoal(int[] goal) {
+		this.goal = goal;
 	}
 
 	@Override
-	public int getGoalY() {
-		return this.goalY;
-	}
-
-	@Override
-	public int getGoalZ() {
-		return this.goalZ;
+	public int[] getGoal() {
+		return this.goal;
 	}
 	
 }

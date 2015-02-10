@@ -28,10 +28,7 @@ public class Particle {
 		float fitness = fitnessFunction.calcFitness(this);
 		if (fitness < this.pBestVal) {
 			this.pBestVal = fitness;
-			this.pBest.x = this.position.x;
-			this.pBest.y = this.position.y;
-			if (this.numDimensions == 3)
-				this.pBest.z = this.position.z;
+			this.pBest = this.position.copy();
 		}
 		return fitness;
 	}
@@ -42,47 +39,37 @@ public class Particle {
 			System.exit(0);
 		}
 		//v[] = v[] + c1 * rand() * (pbest[] - present[]) + c2 * rand() * (gbest[] - present[])
-		this.velocity.x += (this.options.c1 * Math.random() * (this.pBest.x - this.position.x)) + (this.options.c2 * Math.random() * (gBest.x - this.position.x));
-		this.velocity.y += (this.options.c1 * Math.random() * (this.pBest.y - this.position.y)) + (this.options.c2 * Math.random() * (gBest.y - this.position.y));
-		if (this.numDimensions == 3)
-			this.velocity.z += (this.options.c1 * Math.random() * (this.pBest.z - this.position.z)) + (this.options.c2 * Math.random() * (gBest.z - this.position.z));
-		
+		double[] vel = new double[this.numDimensions];
+		for (int i = 0; i < this.numDimensions; i++) {
+			this.velocity.get()[i] += (
+					this.options.c1 * Math.random() * 
+					(this.pBest.get()[i] - this.position.get()[i])) + 
+					(this.options.c2 * Math.random() * (gBest.get()[i] - this.position.get()[i])
+			);
+			
+		}
 		this.applySpeedLimit();
 		this.updateVector();
 	}
 	
 	private void applySpeedLimit () {
-		if (this.velocity.x > this.options.speedLimit)
-			this.velocity.x = this.options.speedLimit;
-		else if (this.velocity.x < -this.options.speedLimit)
-			this.velocity.x = -this.options.speedLimit;
-		
-		if (this.velocity.y > this.options.speedLimit)
-			this.velocity.y = this.options.speedLimit;
-		else if (this.velocity.y < -this.options.speedLimit)
-			this.velocity.y = -this.options.speedLimit;
-		
-		if (this.numDimensions == 3) {
-			if (this.velocity.z > this.options.speedLimit)
-				this.velocity.z = this.options.speedLimit;
-			else if (this.velocity.z < -this.options.speedLimit)
-				this.velocity.z = -this.options.speedLimit;
+		for (int i = 0; i < this.numDimensions; i++) {
+			if (this.velocity.get()[i] > this.options.speedLimit)
+				this.velocity.get()[i] = this.options.speedLimit;
+			else if (this.velocity.get()[i] < -this.options.speedLimit)
+				this.velocity.get()[i] = -this.options.speedLimit;
 		}
 	}
 	
 	private void updateVector () {
-		this.lastPosition2.x = this.lastPosition1.x;
-		this.lastPosition2.y = this.lastPosition1.y;
-		if (this.numDimensions == 3)
-			this.lastPosition2.z = this.lastPosition1.z;
-		this.lastPosition1.x = this.position.x;
-		this.lastPosition1.y = this.position.y;
-		if (this.numDimensions == 3)
-			this.lastPosition1.z = this.position.z;
-		this.position.x = (int) Math.floor(this.position.x + this.velocity.x);
-		this.position.y = (int) Math.floor(this.position.y + this.velocity.y);
-		if (this.numDimensions == 3)
-			this.position.z = (int) Math.floor(this.position.z + this.velocity.z);
+		this.lastPosition2 = this.lastPosition1.copy();
+		this.lastPosition1 = this.position.copy();
+		
+		int[] newPos = new int[this.numDimensions];
+		for (int i = 0; i < this.numDimensions; i++) {
+			newPos[i] = (int) Math.round(this.position.get()[i] + this.velocity.get()[i]);
+		}
+		this.position.set(newPos);
 	}
 	
 	public float getLocalBest () {
