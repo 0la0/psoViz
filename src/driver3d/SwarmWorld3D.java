@@ -25,6 +25,8 @@ public class SwarmWorld3D {
 	private Population p;
 	private IFitness fitnessFunction;
 	private Options options = new Options();
+	private int searchSpaceSize = 500;
+	private int doubleSpace = 1000;
 	
 	public SwarmWorld3D (Options options) {
 		//swarm parameters
@@ -35,7 +37,10 @@ public class SwarmWorld3D {
 		*/
 		this.options = options;
 		
-		Position size = new Position(new int[]{500, 500, 500, 500, 500, 500});
+		Position size = new Position(new int[]{
+			this.searchSpaceSize, this.searchSpaceSize, this.searchSpaceSize,
+			this.searchSpaceSize, this.searchSpaceSize, this.searchSpaceSize
+		});
 		this.fitnessFunction = new FitnessDistance(new int[]{0, 0, 0, 0, 0, 0});
 		int populationSize = 300;
 		this.p = new Population(size, populationSize, fitnessFunction, options);
@@ -69,24 +74,20 @@ public class SwarmWorld3D {
 		totElapsedTime += elapsedTime / 600.0;
 		
 		if (Math.random() < 0.01) {
-			this.p.resetGoal( new int[]{
-				(int) (500 * this.getPosNeg() * Math.random()),
-				(int) (500 * this.getPosNeg() * Math.random()),
-				(int) (500 * this.getPosNeg() * Math.random()),
-				//---test---
-				(int) (500 * this.getPosNeg() * Math.random()),
-				(int) (500 * this.getPosNeg() * Math.random()),
-				(int) (500 * this.getPosNeg() * Math.random())
-			});
+			int[] newGoal = new int[6];
+			for (int i = 0; i < newGoal.length; i++) {
+				newGoal[i] = (int) (this.searchSpaceSize * this.getPosNeg() * Math.random());
+			}
+			this.p.resetGoal(newGoal);
 			this.goalCube.setPosition( 
 				(float) this.fitnessFunction.getGoal()[0],
 				(float) this.fitnessFunction.getGoal()[1],
 				(float) this.fitnessFunction.getGoal()[2]
 			);
 			
-			double goalR = (this.fitnessFunction.getGoal()[3] + 500) / 1000.0;
-			double goalG = (this.fitnessFunction.getGoal()[4] + 500) / 1000.0;
-			double goalB = (this.fitnessFunction.getGoal()[5] + 500) / 1000.0;
+			double goalR = (this.fitnessFunction.getGoal()[3] + this.searchSpaceSize) / (this.doubleSpace * 1.0);
+			double goalG = (this.fitnessFunction.getGoal()[4] + this.searchSpaceSize) / (this.doubleSpace * 1.0);
+			double goalB = (this.fitnessFunction.getGoal()[5] + this.searchSpaceSize) / (this.doubleSpace * 1.0);
 			this.goalCube.setColor(goalR, goalG, goalB);
 			
 		}
@@ -109,9 +110,9 @@ public class SwarmWorld3D {
 				(float) position[2]
 			);
 			//---SET COLOR---//
-			double cubeR = (position[3] + 500) / 1000.0 + 0.0;
-			double cubeG = (position[4] + 500) / 1000.0 + 0.0;
-			double cubeB = (position[5] + 500) / 1000.0 + 0.0;
+			double cubeR = (position[3] + this.searchSpaceSize) / (this.doubleSpace * 1.0);
+			double cubeG = (position[4] + this.searchSpaceSize) / (this.doubleSpace * 1.0);
+			double cubeB = (position[5] + this.searchSpaceSize) / (this.doubleSpace * 1.0);;
 			cube.setColor(cubeR, cubeG, cubeB);
 		}
 	}
@@ -147,56 +148,56 @@ public class SwarmWorld3D {
 	private void createBoundingBox () {
 		//bottom
 		gameObjs.add(new Line(
-			new Vector3f(500f, 500f, -500f),
-			new Vector3f(500f, -500f, -500f)
+			new Vector3f((float) this.searchSpaceSize, (float) this.searchSpaceSize, (float) -this.searchSpaceSize),
+			new Vector3f((float) this.searchSpaceSize, (float) -this.searchSpaceSize, (float) -this.searchSpaceSize)
 		));
 		gameObjs.add(new Line(
-			new Vector3f(500f, -500f, -500f),
-			new Vector3f(-500f, -500f, -500f)
+			new Vector3f((float) this.searchSpaceSize, (float) -this.searchSpaceSize, (float) -this.searchSpaceSize),
+			new Vector3f((float) -this.searchSpaceSize, (float) -this.searchSpaceSize, (float) -this.searchSpaceSize)
 		));
 		gameObjs.add(new Line(
-			new Vector3f(-500f, -500f, -500f),
-			new Vector3f(-500f, 500f, -500f)
+			new Vector3f((float) -this.searchSpaceSize, (float) -this.searchSpaceSize, (float) -this.searchSpaceSize),
+			new Vector3f((float) -this.searchSpaceSize, (float) this.searchSpaceSize, (float) -this.searchSpaceSize)
 		));
 		gameObjs.add(new Line(
-			new Vector3f(-500f, 500f, -500f),
-			new Vector3f(500f, 500f, -500f)
+			new Vector3f((float) -this.searchSpaceSize, (float) this.searchSpaceSize, (float) -this.searchSpaceSize),
+			new Vector3f((float) this.searchSpaceSize, (float) this.searchSpaceSize, (float) -this.searchSpaceSize)
 		));
 		
 		//top
 		gameObjs.add(new Line(
-			new Vector3f(500f, 500f, 500f),
-			new Vector3f(500f, -500f, 500f)
+			new Vector3f((float) this.searchSpaceSize, (float) this.searchSpaceSize, (float) this.searchSpaceSize),
+			new Vector3f((float) this.searchSpaceSize, (float) -this.searchSpaceSize, (float) this.searchSpaceSize)
 		));
 		gameObjs.add(new Line(
-			new Vector3f(500f, -500f, 500f),
-			new Vector3f(-500f, -500f, 500f)
+			new Vector3f((float) this.searchSpaceSize, (float) -this.searchSpaceSize, (float) this.searchSpaceSize),
+			new Vector3f((float) -this.searchSpaceSize, (float) -this.searchSpaceSize, (float) this.searchSpaceSize)
 		));
 		gameObjs.add(new Line(
-			new Vector3f(-500f, -500f, 500f),
-			new Vector3f(-500f, 500f, 500f)
+			new Vector3f((float) -this.searchSpaceSize, (float) -this.searchSpaceSize, (float) this.searchSpaceSize),
+			new Vector3f((float) -this.searchSpaceSize, (float) this.searchSpaceSize, (float) this.searchSpaceSize)
 		));
 		gameObjs.add(new Line(
-			new Vector3f(-500f, 500f, 500f),
-			new Vector3f(500f, 500f, 500f)
+			new Vector3f((float) -this.searchSpaceSize, (float) this.searchSpaceSize, (float) this.searchSpaceSize),
+			new Vector3f((float) this.searchSpaceSize, (float) this.searchSpaceSize, (float) this.searchSpaceSize)
 		));
 				
 		//sides
 		gameObjs.add(new Line(
-			new Vector3f(500f, 500f, -500f),
-			new Vector3f(500f, 500f, 500f)
+			new Vector3f((float) this.searchSpaceSize, (float) this.searchSpaceSize, (float) -this.searchSpaceSize),
+			new Vector3f((float) this.searchSpaceSize, (float) this.searchSpaceSize, (float) this.searchSpaceSize)
 		));
 		gameObjs.add(new Line(
-			new Vector3f(-500f, 500f, -500f),
-			new Vector3f(-500f, 500f, 500f)
+			new Vector3f((float) -this.searchSpaceSize, (float) this.searchSpaceSize, (float) -this.searchSpaceSize),
+			new Vector3f((float) -this.searchSpaceSize, (float) this.searchSpaceSize, (float) this.searchSpaceSize)
 		));
 		gameObjs.add(new Line(
-			new Vector3f(500f, -500f, -500f),
-			new Vector3f(500f, -500f, 500f)
+			new Vector3f((float) this.searchSpaceSize, (float) -this.searchSpaceSize, (float) -this.searchSpaceSize),
+			new Vector3f((float) this.searchSpaceSize, (float) -this.searchSpaceSize, (float) this.searchSpaceSize)
 		));
 		gameObjs.add(new Line(
-			new Vector3f(-500f, -500f, -500f),
-			new Vector3f(-500f, -500f, 500f)
+			new Vector3f((float) -this.searchSpaceSize, (float) -this.searchSpaceSize, (float) -this.searchSpaceSize),
+			new Vector3f((float) -this.searchSpaceSize, (float) -this.searchSpaceSize, (float) this.searchSpaceSize)
 		));
 	}
 

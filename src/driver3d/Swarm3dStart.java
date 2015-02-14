@@ -94,9 +94,9 @@ public class Swarm3dStart {
 	
 	public static void main (String[] args) {
 		Options options = new Options();
-		options.c1 = 0.1f;
-		options.c2 = 0.0001f;
-		options.speedLimit = 10.0f;
+		//options.c1 = 0.1f;
+		//options.c2 = 0.0001f;
+		//options.speedLimit = 10.0f;
 		
 		Controls c = new Controls(options);
 		world = new SwarmWorld3D(options);
