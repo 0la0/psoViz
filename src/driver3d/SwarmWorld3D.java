@@ -25,16 +25,18 @@ public class SwarmWorld3D {
 	private ArrayList<Cube> cubes = new ArrayList<Cube>();
 	
 	private Population p;
-	private IFitness fitnessFunction = new FitnessDistance(new int[]{0, 0, 0});
+	private IFitness fitnessFunction;
 	private Options options = new Options();
 	
 	public SwarmWorld3D () {
 		//swarm parameters
-		this.options.c1 = 0.01f;
+		this.options.c1 = 0.006f;
 		this.options.c2 = 0.001f;
 		this.options.speedLimit = 30.0f;
 		
-		Position size = new Position(new int[]{500, 500, 500});
+		Position size = new Position(new int[]{500, 500, 500, 500, 500, 500});
+		this.fitnessFunction = new FitnessDistance(new int[]{0, 0, 0, 0, 0, 0});
+		//Position size = new Position(new int[]{500, 500, 500});
 		int populationSize = 300;
 		this.p = new Population(size, populationSize, fitnessFunction, options);
 		
@@ -42,13 +44,24 @@ public class SwarmWorld3D {
 		
 		//initialize cubes
 		for (Particle particle : p.getParticles()) {
+			/*
 			cubes.add(new Cube(
-				//new Vector3f((float) particle.getPosition().x, (float) particle.getPosition().y, (float) particle.getPosition().z),
+					new Vector3f(
+						(float) particle.getPosition().get()[0],
+						(float) particle.getPosition().get()[1],
+						(float) particle.getPosition().get()[2]),
+						10.0, 0, 0, 1
+				));
+			*/
+			cubes.add(new Cube(
 				new Vector3f(
 					(float) particle.getPosition().get()[0],
 					(float) particle.getPosition().get()[1],
 					(float) particle.getPosition().get()[2]),
-					10.0, 0.0, 0.0, 255.0
+					10.0,
+					particle.getPosition().get()[3],
+					particle.getPosition().get()[4],
+					particle.getPosition().get()[5]
 			));
 		}
 
@@ -120,22 +133,36 @@ public class SwarmWorld3D {
 	public void update (int elapsedTime) {
 		totElapsedTime += elapsedTime / 600.0;
 		
-		if (Math.random() < 0.01) {
+		if (Math.random() < 0.005) {
 			this.p.resetGoal( new int[]{
 				(int) (500 * this.getPosNeg() * Math.random()),
 				(int) (500 * this.getPosNeg() * Math.random()),
+				(int) (500 * this.getPosNeg() * Math.random()),
+				//---test---
+				
+				(int) (500 * this.getPosNeg() * Math.random()),
+				(int) (500 * this.getPosNeg() * Math.random()),
 				(int) (500 * this.getPosNeg() * Math.random())
+				
 			});
 			this.goalCube.setPosition( 
 				(float) this.fitnessFunction.getGoal()[0],
 				(float) this.fitnessFunction.getGoal()[1],
 				(float) this.fitnessFunction.getGoal()[2]
 			);
+			
+			double goalR = (this.fitnessFunction.getGoal()[3] + 500) / 1000.0;
+			double goalG = (this.fitnessFunction.getGoal()[4] + 500) / 1000.0;
+			double goalB = (this.fitnessFunction.getGoal()[5] + 500) / 1000.0;
+			this.goalCube.setColor(goalR, goalG, goalB);
+			
 		}
-		
+		/*
 		for (RenderObject go : gameObjs){
 			go.update(elapsedTime);
 		}
+		*/
+		
 		
 		double meanFitness = p.update();
 		/*
@@ -143,12 +170,27 @@ public class SwarmWorld3D {
 			this.p.resetPosAndVel();
 		}
 		*/
+		//---set the cube position from the particle position---//
 		for (int i = 0; i < this.p.getParticles().size(); i++) {
 			Particle particle = this.p.getParticles().get(i);
-			cubes.get(i).setPosition(
-					(float) particle.getPosition().get()[0], 
-					(float) particle.getPosition().get()[1], 
-					(float) particle.getPosition().get()[2]);
+			Cube cube = cubes.get(i);
+			int[] position = particle.getPosition().get();
+			//---SET POSITION---//
+			cube.setPosition(
+				(float) position[0], 
+				(float) position[1], 
+				(float) position[2]
+			);
+			//---SET COLOR---//
+			
+			double cubeR = (position[3] + 500) / 1000.0 + 0.0;
+			double cubeG = (position[4] + 500) / 1000.0 + 0.0;
+			double cubeB = (position[5] + 500) / 1000.0 + 0.0;
+			cube.setColor(cubeR, cubeG, cubeB);
+			
+			//if (Math.random() < 0.001) {
+			//	System.out.printf("\ncube color %3.4f, %3.4f, %3.4f", cubeR, cubeG, cubeB);
+			//}
 		}
 	}
 

@@ -14,7 +14,7 @@ public class Cube implements RenderObject{
 	private float angleMult;
 	private float directionMult;
 	
-	private double r = 0.75;
+	private double r = 32.0;
 	private double g = 0;
 	private double b = 0.5;
 	private int alpha = 1;
@@ -68,6 +68,12 @@ public class Cube implements RenderObject{
 			isDead = true;
 		}
 	}
+	
+	public void setColor (double r, double g, double b) {
+		this.r = r;
+		this.g = g;
+		this.b = b;
+	}
 
 	@Override
 	public void render() {
@@ -75,7 +81,7 @@ public class Cube implements RenderObject{
 		GL11.glPushMatrix();
         GL11.glRotatef(angle, position.x, position.y, position.z);
 
-        GL11.glColor4d(r, g, b, alpha);
+        GL11.glColor4d(this.r, this.g, this.b, alpha);
         
         GL11.glBegin(GL11.GL_QUADS);
         {

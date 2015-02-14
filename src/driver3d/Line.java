@@ -34,8 +34,8 @@ public class Line implements RenderObject{
 
 	@Override
 	public void render() {
-		GL11.glLineWidth(3f); 
-		GL11.glColor3f(0.0f, 100.0f, 0.0f);
+		GL11.glLineWidth(0.1f); 
+		GL11.glColor3f(0.0f, 0.0f, 0.0f);
 		GL11.glBegin(GL11.GL_LINES);
 		{
 			GL11.glVertex3f(startPos.x, startPos.y, startPos.z);
