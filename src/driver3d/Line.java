@@ -28,9 +28,7 @@ public class Line implements RenderObject{
 	}
 	
 	@Override
-	public void update(int elapsedTime) {
-		
-	}
+	public void update(int elapsedTime) {}
 
 	@Override
 	public void render() {
@@ -44,10 +42,5 @@ public class Line implements RenderObject{
 		GL11.glEnd();
 	}
 
-	@Override
-	public boolean getIsDead() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 }
