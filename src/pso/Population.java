@@ -22,7 +22,7 @@ public class Population {
 		for (int i = 0; i < numParticles; i++) {
 			particles.add(new Particle(
 				this.getRandomPosition(),
-				this.getRandomVelocity(),
+				this.getRandomVelocity(false),
 				fitnessFunction,
 				options
 			));
@@ -81,7 +81,7 @@ public class Population {
 		for (Particle p : this.particles) {
 			p.reset();
 			p.setPosition(this.getRandomPosition());
-			p.setVelocity(this.getRandomVelocity());
+			p.setVelocity(this.getRandomVelocity(false));
 		}
 	}
 	
@@ -93,12 +93,22 @@ public class Population {
 		return new Position(randPos);
 	}
 	
-	private Velocity getRandomVelocity () {
+	private Velocity getRandomVelocity (boolean isScatter) {
 		double[] velocity = new double[this.numDimensions];
+		int scatterMultiplier = 1;
+		if (isScatter) scatterMultiplier = 5;
 		for (int i = 0; i < this.numDimensions; i++) {
-			velocity[i] = this.getPosNeg() * velMultiplier * Math.random();
+			velocity[i] = this.getPosNeg() * velMultiplier * scatterMultiplier * Math.random();
 		}
 		return new Velocity(velocity);
+	}
+	
+	public void scatter () {
+		System.out.println("population scatter");
+		this.gBestVal = 9999.9f;
+		for (Particle p : this.particles) {
+			p.scatter(this.getRandomVelocity(true));
+		}
 	}
 	
 }

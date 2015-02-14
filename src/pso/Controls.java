@@ -1,5 +1,4 @@
 package pso;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -8,8 +7,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,6 +22,7 @@ import javax.swing.event.ChangeListener;
 @SuppressWarnings("serial")
 public class Controls extends JPanel{
 
+	private JPanel mainPanel = new JPanel();
 	private JPanel sliderPanel = new JPanel();
 	private JSlider c1 = new JSlider(0, 100);
 	private JLabel _c1 = new JLabel("c1");
@@ -32,15 +32,17 @@ public class Controls extends JPanel{
 	private JLabel _speedLimit = new JLabel("speedLimit");
 	private JSlider meanFitness = new JSlider(10, 100);
 	private JLabel _meanFitness = new JLabel("meanFitness");
+	private JButton scatterButton = new JButton("scatter");
 
 	private int width = 420;
-	private int height = 100;
+	private int height = 130;
 	
 	private Options options;
 	
-	public Controls(Options options){
+	public Controls(final Options options){
 		this.options = options;
 		
+		//---CREATE SLIDER PANEL---//
 		sliderPanel.setLayout(new GridLayout(4, 2));
 		sliderPanel.add(c1);
 		sliderPanel.add(_c1);
@@ -50,7 +52,6 @@ public class Controls extends JPanel{
 		sliderPanel.add(_speedLimit);
 		sliderPanel.add(meanFitness);
 		sliderPanel.add(_meanFitness);
-        
         TitledBorder sliderBorder = BorderFactory.createTitledBorder(
 			BorderFactory.createLineBorder(Color.black),
 			"Options"
@@ -58,35 +59,47 @@ public class Controls extends JPanel{
 		sliderBorder.setTitlePosition(TitledBorder.ABOVE_TOP);
 		sliderPanel.setBorder(sliderBorder);
 		
-		
-		
+		//---SLIDER LISTENERS---//
 		SliderListener listener = new SliderListener();
-		
 		c1.addChangeListener(listener);
 		c2.addChangeListener(listener);
 		speedLimit.addChangeListener(listener);
 		meanFitness.addChangeListener(listener);
 		
-		this.setMinimumSize(new Dimension(width, height));
-		this.setPreferredSize(new Dimension(width, height));
-		this.add(sliderPanel);
+		//---BUTTON LISTENER---//
+		scatterButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				if (options.population != null) {
+					options.population.scatter();
+				}
+			}
+		});
 		
-		c1.setValue(20);
-		c2.setValue(2);
+		//---SET INITIAL VALUES---//
+		c1.setValue(6);
+		c2.setValue(1);
 		speedLimit.setValue(20);
 		meanFitness.setValue(50);
+		
+		//---CREATE PANEL---//
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+		mainPanel.add(sliderPanel);
+		mainPanel.add(scatterButton);
+		this.setMinimumSize(new Dimension(width, height));
+		this.setPreferredSize(new Dimension(width, height));
+		this.add(mainPanel);
 		this.createFrame();
 	}
 
 	private class SliderListener implements ChangeListener{
 	    public void stateChanged(ChangeEvent ce){
 	    	if (ce.getSource() == c1){
-	    		float val = (float) (c1.getValue() / 200.0);
+	    		float val = (float) (c1.getValue() / 1000.0);
 	    		_c1.setText("c1: " + val);
 	    		options.c1 = val;
 	    	}
 	    	else if (ce.getSource() == c2){
-	    		float val = (float) (c2.getValue() / 200.0);
+	    		float val = (float) (c2.getValue() / 1000.0);
 	    		_c2.setText("c2: " + val);
 	    		options.c2 = val;
 	    	}

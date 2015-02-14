@@ -44,7 +44,7 @@ public class SwarmWorld3D {
 		this.fitnessFunction = new FitnessDistance(new int[]{0, 0, 0, 0, 0, 0});
 		int populationSize = 300;
 		this.p = new Population(size, populationSize, fitnessFunction, options);
-		
+		this.options.population = p;
 		this.createBoundingBox ();
 		
 		//initialize cubes

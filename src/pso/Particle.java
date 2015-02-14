@@ -94,6 +94,11 @@ public class Particle {
 		this.pBestVal = 999999.9f;
 	}
 	
+	public void scatter (Velocity velocity) {
+		this.pBestVal = 999999.9f;
+		this.velocity = velocity;
+	}
+	
 	public void setPosition (Position position) {
 		this.position = position;
 		this.lastPosition1 = position.copy();

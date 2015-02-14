@@ -31,6 +31,7 @@ public class Driver2d extends JPanel implements MouseListener{
 		this.options = options;
 		Position size = new Position(new int[]{width, height});
 		this.p = new Population(size, populationSize, fitnessFunction, options);
+		this.options.population = p;
 		this.timer = new Timer(animationStepTime, new ActionListener() {
 	        public void actionPerformed(ActionEvent evt) {
 	    		iterate();

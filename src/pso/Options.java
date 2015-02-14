@@ -6,5 +6,6 @@ public class Options {
 	public float c2;
 	public float speedLimit;
 	public int convergenceThresh;
+	public Population population = null;
 	
 }
