@@ -40,7 +40,6 @@ public class Population {
 				//new global best
 				this.gBestVal = p.getLocalBest();
 				gBest = p.getLocalBestPosition().copy();
-				
 			}
 		}
 		//update positions
@@ -109,6 +108,14 @@ public class Population {
 		for (Particle p : this.particles) {
 			p.scatter(this.getRandomVelocity(true));
 		}
+	}
+	
+	public Position getGlobalBest () {
+		return this.gBest;
+	}
+	
+	public void setGlobalBest (Position gBest) {
+		this.gBest = gBest;
 	}
 	
 }

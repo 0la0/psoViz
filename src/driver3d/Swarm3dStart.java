@@ -16,8 +16,9 @@ public class Swarm3dStart {
 	private int fps;
 	private long lastFPS;
 	private boolean fpsIsOn = true;
-	private static SwarmWorld3D world;
-	
+	//private static SwarmWorld3D world;
+	private static DoubleSwarmWorld3D world;
+
 	public Swarm3dStart () {
 		init3dDisplay();
 		getDelta();
@@ -99,7 +100,8 @@ public class Swarm3dStart {
 		//options.speedLimit = 10.0f;
 		
 		Controls c = new Controls(options);
-		world = new SwarmWorld3D(options);
+		//world = new SwarmWorld3D(options);
+		world = new DoubleSwarmWorld3D(options);
 		new Swarm3dStart();
 	}
 
