@@ -1,4 +1,4 @@
-package pso;
+package driver2d;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,6 +10,13 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import pso.FitnessDistance;
+import pso.IFitness;
+import pso.Options;
+import pso.Particle;
+import pso.Population;
+import pso.Position;
 
 
 public class Driver2d extends JPanel implements MouseListener{

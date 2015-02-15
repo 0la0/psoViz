@@ -1,4 +1,4 @@
-package pso;
+package driver2d;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -17,10 +17,12 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import pso.Options;
+
 
 
 @SuppressWarnings("serial")
-public class Controls extends JPanel{
+public class UiControls2D extends JPanel{
 
 	private JPanel mainPanel = new JPanel();
 	private JPanel sliderPanel = new JPanel();
@@ -39,7 +41,7 @@ public class Controls extends JPanel{
 	
 	private Options options;
 	
-	public Controls(final Options options){
+	public UiControls2D(final Options options){
 		this.options = options;
 		
 		//---CREATE SLIDER PANEL---//

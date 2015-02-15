@@ -1,7 +1,9 @@
-package pso;
+package driver2d;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+
+import pso.Options;
 
 
 
@@ -17,7 +19,7 @@ public class Init {
 		options.c2 = 0.0001f;
 		options.speedLimit = 10.0f;
 		
-		Controls c = new Controls(options);
+		UiControls c = new UiControls(options);
 		Driver2d swarmDriver = new Driver2d(w, h, 500, options);
 		
 		JFrame imgFrame = new JFrame();

@@ -28,7 +28,7 @@ public class DoubleSwarmWorld3D {
 	private Options options = new Options();
 	private int searchSpaceSize = 500;
 	private int doubleSpace = 1000;
-	private int p1Size = 100;
+	private int p1Size = 300;
 	private int p2Size = 100;
 	
 	public DoubleSwarmWorld3D (Options options) {
@@ -40,7 +40,7 @@ public class DoubleSwarmWorld3D {
 		});
 		this.fitnessFunction = new FitnessDistance(new int[]{0, 0, 0, 0, 0, 0});
 		this.p1 = new Population(size, p1Size, fitnessFunction, options);
-		this.p2 = new Population(size, p1Size, fitnessFunction, options);
+		this.p2 = new Population(size, p2Size, fitnessFunction, options);
 		this.options.population = p1;
 		this.createBoundingBox ();
 		

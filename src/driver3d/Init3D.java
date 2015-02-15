@@ -7,10 +7,9 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
 
-import pso.Controls;
 import pso.Options;
 
-public class Swarm3dStart {
+public class Init3D {
 	
 	private long lastFrame;
 	private int fps;
@@ -19,7 +18,7 @@ public class Swarm3dStart {
 	//private static SwarmWorld3D world;
 	private static DoubleSwarmWorld3D world;
 
-	public Swarm3dStart () {
+	public Init3D () {
 		init3dDisplay();
 		getDelta();
 		lastFPS = getTime();
@@ -99,10 +98,10 @@ public class Swarm3dStart {
 		//options.c2 = 0.0001f;
 		//options.speedLimit = 10.0f;
 		
-		Controls c = new Controls(options);
+		UiControls3D c = new UiControls3D(options);
 		//world = new SwarmWorld3D(options);
 		world = new DoubleSwarmWorld3D(options);
-		new Swarm3dStart();
+		new Init3D();
 	}
 
 }
