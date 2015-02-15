@@ -11,12 +11,12 @@ To view and interact with the 2D version:
 
 Compile: 
 ```Shell
-javac -d bin src/pso/*
+javac -d bin src/pso/* src/driver2d/*
 ```
 
 Run:
 ```Shell
-java -cp ./bin pso/Init
+java -cp ./bin driver2d/Init2D
 ```
 
 The 3D version runs on the [lwjgl](http://www.lwjgl.org/).
