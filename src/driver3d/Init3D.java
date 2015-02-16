@@ -98,8 +98,9 @@ public class Init3D {
 		//options.c2 = 0.0001f;
 		//options.speedLimit = 10.0f;
 		
-		UiControls3D c = new UiControls3D(options);
+		//UiControls3D c = new UiControls3D(options);
 		//world = new SwarmWorld3D(options);
+		new UiControls3D(options);
 		world = new DoubleSwarmWorld3D(options);
 		new Init3D();
 	}
