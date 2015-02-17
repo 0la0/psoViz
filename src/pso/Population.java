@@ -11,12 +11,12 @@ public class Population {
 	private Position gBest;
 	private IFitness fitnessFunction;
 	private int size;
-	private Position canvasSize;
+	private Position searchSpaceSize;
 	private int numDimensions;
 	
-	public Population (Position canvasSize, int numParticles, IFitness fitnessFunction, Options options) {
-		this.canvasSize = canvasSize;
-		this.numDimensions = this.canvasSize.getNumDimensions();
+	public Population (Position searchSpaceSize, int numParticles, IFitness fitnessFunction, Options options) {
+		this.searchSpaceSize = searchSpaceSize;
+		this.numDimensions = this.searchSpaceSize.getNumDimensions();
 		this.size = numParticles;
 		this.fitnessFunction = fitnessFunction;
 		for (int i = 0; i < numParticles; i++) {
@@ -73,7 +73,7 @@ public class Population {
 	public void resetPosAndVel () {
 		int[] newGoal = new int[this.numDimensions];
 		for (int i = 0; i < this.numDimensions; i++) {
-			newGoal[i] = (int) (this.canvasSize.get()[i] * Math.random());
+			newGoal[i] = (int) (this.searchSpaceSize.get()[i] * Math.random());
 		}
 		this.fitnessFunction.setGoal(newGoal);
 		this.gBestVal = 9999.9f;
@@ -87,7 +87,7 @@ public class Population {
 	private Position getRandomPosition () {
 		int[] randPos = new int[this.numDimensions]; 
 		for (int i = 0; i < this.numDimensions; i++) {
-			randPos[i] = (int) Math.floor(this.canvasSize.get()[i] * Math.random());
+			randPos[i] = (int) Math.floor(this.searchSpaceSize.get()[i] * Math.random());
 		}
 		return new Position(randPos);
 	}

@@ -39,7 +39,7 @@ public class Particle {
 			System.exit(0);
 		}
 		//v[] = v[] + c1 * rand() * (pbest[] - present[]) + c2 * rand() * (gbest[] - present[])
-		double[] vel = new double[this.numDimensions];
+		//double[] vel = new double[this.numDimensions];
 		for (int i = 0; i < this.numDimensions; i++) {
 			this.velocity.get()[i] += 
 					(this.options.c1 * Math.random() * (this.pBest.get()[i] - this.position.get()[i])) + 
