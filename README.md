@@ -13,11 +13,13 @@ To explore and experiment with ways of visualizing PSO in high dimensional conti
 ###Background / Previous Work
 ---
 A paper that explores high dimensional PSO visualization using Sammon's Mapping:
+
 Kim, Yong-Hyuk, Kang Hoon Lee, and Yourim Yoon. "Visualizing the search process of particle swarm optimization."
 Proceedings of the 11th Annual conference on Genetic and evolutionary computation. ACM, 2009.
 [PDF](http://cg.kw.ac.kr/kang/visual_pso/visual_pso.pdf)
 
-A really awesome paper and project that sonifies the PSO:
+A paper and project that sonifies the PSO:
+
 Tavares, Tiago F., and Alan Godoy. "Sonification of population behavior in Particle Swarm Optimization."
 Proceedings of the 15th annual conference companion on Genetic and evolutionary computation. ACM, 2013.
 [PDF](http://www.dca.fee.unicamp.br/~tavares/Swarm/gecco2013.pdf)
@@ -25,7 +27,7 @@ Proceedings of the 15th annual conference companion on Genetic and evolutionary 
 
 ###Usage:
 ---
-The PSO algorithm is in the PSO package.  Different Java technologies have been used to visualize the algorithm.
+The PSO algorithm is in the PSO package.  Different Java technologies have been used to visualize the algorithm, each separated into different packages.
 
 To view and interact with the 2D version made with Swing:
 
