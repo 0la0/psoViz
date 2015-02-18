@@ -17,13 +17,13 @@ public class Basic2dDriver extends PopulationDriver {
 		super(searchSpaceDimensions, initGoal, numPopulations);
 		
 		//---BUILD PSO---//
-        this.options.c1 = 0.01f;
-    	this.options.c2 = 0.001f;
-    	this.options.speedLimit = 10.0f;
+		this.options.c1 = 0.01f;
+		this.options.c2 = 0.001f;
+		this.options.speedLimit = 10.0f;
     	
-    	int populationSize = 1000;
-    	Position size = new Position(searchSpaceDimensions.clone());
-    	this.fitnessFunction = new FitnessDistance(initGoal.clone());
+		int populationSize = 1000;
+		Position size = new Position(searchSpaceDimensions.clone());
+		this.fitnessFunction = new FitnessDistance(initGoal.clone());
 		this.p = new Population(size, populationSize, fitnessFunction, options);
 		this.options.population = p;
 		this.setUpUi();

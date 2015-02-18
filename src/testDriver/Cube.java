@@ -7,7 +7,7 @@ import javafx.scene.shape.Box;
 public class Cube {
 	
 	private PhongMaterial material;
-	private Box box = new Box(5, 5, 5);
+	private Box box;
 	private Color color;
 	private Color difuseColor = null;
 	private Color specularColor = null;
@@ -37,8 +37,8 @@ public class Cube {
 		this.specularColor = specularColor;
 		this.material = new PhongMaterial();
 		this.material.setDiffuseColor(this.difuseColor);
-	    this.material.setSpecularColor(this.specularColor);
-	    this.box.setMaterial(this.material);
+		this.material.setSpecularColor(this.specularColor);
+		this.box.setMaterial(this.material);
 	}
 	
 	public void setMaterial (PhongMaterial material) {
@@ -63,7 +63,7 @@ public class Cube {
 		this.specularColor = Color.color(r, g, b);
 		this.difuseColor = Color.color(r, g, b);
 		this.material.setDiffuseColor(this.difuseColor);
-	    this.material.setSpecularColor(this.specularColor);
+		this.material.setSpecularColor(this.specularColor);
 	}
 	
 	public Box getBox () {

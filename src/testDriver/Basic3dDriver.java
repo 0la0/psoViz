@@ -6,10 +6,12 @@ import pso.FitnessDistance;
 import pso.Particle;
 import pso.Population;
 import pso.Position;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SubScene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.SceneAntialiasing;
@@ -17,92 +19,77 @@ import javafx.scene.SceneAntialiasing;
 public class Basic3dDriver extends PopulationDriver {
 
 	private Group root = new Group();
-    private Group boundryGroup = new Group();
-    private Xform world = new Xform();
-    private PerspectiveCamera camera = new PerspectiveCamera(true);
-    private Xform cameraXform = new Xform();
-    private Xform cameraXform2 = new Xform();
-    private Xform cameraXform3 = new Xform();
-    private double cameraDistance = 1100;
-    
-    private Xform particleGroup = new Xform();
-    private ArrayList<Cube> particles = new ArrayList<Cube>();
-    private int size = 250;
-    private int halfSize = size;
-    
-    private SubScene scene;
-    private Cube goalCube = new Cube(20, 20, 20);
+	private Group boundryGroup = new Group();
+	private Xform world = new Xform();
+	private PerspectiveCamera camera = new PerspectiveCamera(true);
+	private Xform cameraXform = new Xform();
+	private Xform cameraXform2 = new Xform();
+	private Xform cameraXform3 = new Xform();
+	private double cameraDistance = 1100;
+
+	private Xform particleGroup = new Xform();
+	private ArrayList<Cube> particles = new ArrayList<Cube>();
+	private int size = 250;
+	private int halfSize = size;
+
+	private SubScene scene;
+	private Cube goalCube = new Cube(20, 20, 20);
+	
+	private double mousePosX;
+	private double mousePosY;
+	private double mouseOldX;
+	private double mouseOldY;
+	private double mouseDeltaX;
+	private double mouseDeltaY;
 	
 	public Basic3dDriver(int[] searchSpaceDimensions, int[] initGoal, int numPopulations) {
 		super(searchSpaceDimensions, initGoal, numPopulations);
 
-		//swarm parameters
-    	this.options.c1 = 0.1f;
-    	this.options.c2 = 0.01f;
-    	this.options.speedLimit = 25;
+		//---swarm parameters---//
+		this.options.c1 = 0.1f;
+		this.options.c2 = 0.01f;
+		this.options.speedLimit = 25;
     	
-    	//swarm setup
-    	Position size = new Position(new int[]{
-    		this.size, this.size, this.size, this.size, this.size, this.size});
-    	this.fitnessFunction = new FitnessDistance(new int[]{0, 0, 0, 0, 0, 0});
-    	int populationSize = 1000;
-    	this.p = new Population(size, populationSize, fitnessFunction, options);
-    	this.options.population = p;
+		//---swarm setup---//
+		Position size = new Position(new int[]{
+			this.size, this.size, this.size, this.size, this.size, this.size});
+		this.fitnessFunction = new FitnessDistance(new int[]{0, 0, 0, 0, 0, 0});
+		int populationSize = 300;
+		this.p = new Population(size, populationSize, fitnessFunction, options);
+		this.options.population = p;
     	
-    	this.buildScene();
-        this.buildCamera();
-        this.buildBoundries();
-        this.buildParticles();
+		
+		root.getChildren().add(world);
+		this.buildCamera();
+		this.buildBoundries();
+		this.buildParticles();
         
-        this.scene = new SubScene(root, 900, 675, true, SceneAntialiasing.BALANCED);
-        scene.setFill(Color.GREY);
-        scene.setCamera(camera);
-        
-        /*
-        scene.setOnKeyPressed((KeyEvent ke) -> {
-            if (ke.getCode().equals(KeyCode.SPACE)) {
-        		if (timerIsOn) {
-                	System.out.println("pause");
-                    timer.stop();
-                	timerIsOn = false;
-                } else {
-                	System.out.println("play");
-                    timer.start();
-                	timerIsOn = true;
-                }
-        	}
-        });
-        */
-        
-        InteractionHelper ih = new InteractionHelper(camera, cameraXform, cameraXform2);
-        ih.handleMouse(scene, world);
-    }
-	
-	private void buildScene() {
-        root.getChildren().add(world);
-    }
+		this.scene = new SubScene(root, 900, 675, true, SceneAntialiasing.BALANCED);
+		
+		this.scene.setFill(Color.GREY);
+		this.scene.setCamera(camera);
+		this.handleMouse();
+	}
 
-    private void buildCamera() {
-        root.getChildren().add(cameraXform);
-        cameraXform.getChildren().add(cameraXform2);
-        cameraXform2.getChildren().add(cameraXform3);
-        cameraXform3.getChildren().add(camera);
-        cameraXform3.setRotateZ(180.0);
+	private void buildCamera() {
+		root.getChildren().add(cameraXform);
+		cameraXform.getChildren().add(cameraXform2);
+		cameraXform2.getChildren().add(cameraXform3);
+		cameraXform3.getChildren().add(camera);
+		cameraXform3.setRotateZ(180.0);
 
-        camera.setNearClip(0.1);
-        camera.setFarClip(10000.0);
-        camera.setTranslateZ(-cameraDistance);
-        cameraXform.ry.setAngle(320.0);
-        //cameraXform.rx.setAngle(40);
-    }
+		camera.setNearClip(0.1);
+		camera.setFarClip(10000.0);
+		camera.setTranslateZ(-cameraDistance);
+		cameraXform.ry.setAngle(320.0);
+	}
 
-    private void buildBoundries() {
-        PhongMaterial blackMaterial = new PhongMaterial();
-        blackMaterial.setDiffuseColor(Color.BLACK);
-        blackMaterial.setSpecularColor(Color.BLACK);        
+	private void buildBoundries() {
+		PhongMaterial blackMaterial = new PhongMaterial();
+		blackMaterial.setDiffuseColor(Color.BLACK);
+		blackMaterial.setSpecularColor(Color.BLACK);        
         
-        double lineWidth = 0.5;
-        
+		double lineWidth = 0.5;
         ArrayList<Cube> bounds = new ArrayList<Cube>();
         
         for (int i = 0; i < 4; i++)
@@ -133,37 +120,37 @@ public class Basic3dDriver extends PopulationDriver {
         }
         boundryGroup.getChildren().add(this.goalCube.getBox());
         world.getChildren().addAll(boundryGroup);
-    }
+	}
 
-    private void buildParticles () {
+	private void buildParticles () {
     	
-    	for (Particle particle : p.getParticles()) {
-    		Color color = Color.color(
-    			particle.getPosition().get()[3] / (this.size * 1.0),
-    			particle.getPosition().get()[4] / (this.size * 1.0),
-    			particle.getPosition().get()[5] / (this.size * 1.0)
-    		);
-    		Cube box = new Cube(5, 5, 5, color, color);
-    		box.translate(
-    			particle.getPosition().get()[0],
-    			particle.getPosition().get()[1],
-    			particle.getPosition().get()[2]
-    		);
-    		particles.add(box);
-    	}
+		for (Particle particle : p.getParticles()) {
+			Color color = Color.color(
+				particle.getPosition().get()[3] / (this.size * 1.0),
+				particle.getPosition().get()[4] / (this.size * 1.0),
+				particle.getPosition().get()[5] / (this.size * 1.0)
+			);
+			Cube box = new Cube(5, 5, 5, color, color);
+			box.translate(
+				particle.getPosition().get()[0],
+				particle.getPosition().get()[1],
+				particle.getPosition().get()[2]
+			);
+			particles.add(box);
+		}
     	
-        for (Cube particle : particles) {
-        	this.particleGroup.getChildren().addAll(particle.getBox());
-        }
-        this.world.getChildren().addAll(this.particleGroup);
-    }
+		for (Cube particle : particles) {
+			this.particleGroup.getChildren().addAll(particle.getBox());
+		}
+		this.world.getChildren().addAll(this.particleGroup);
+	}
     
-    private int getPosNeg () {
-    	return (Math.random() < 0.5) ? 1 : -1;
-    }
+	private int getPosNeg () {
+		return (Math.random() < 0.5) ? 1 : -1;
+	}
     
-    @Override
-    public void update (float elapsedTime) {
+	@Override
+	public void update (float elapsedTime) {
 		//---CHANGE GOAL---//
 		if (Math.random() < 0.01) {
 			int[] newGoal = new int[6];
@@ -208,6 +195,51 @@ public class Basic3dDriver extends PopulationDriver {
 	
 	public String toString () {
 		return "basic3D";
+	}
+	
+	/*
+	 * 3D camera rotate on mouse drag
+	 * from http://docs.oracle.com/javafx/8/3d_graphics/sampleapp.htm
+	 */
+	public void handleMouse() {
+		
+		scene.setOnMousePressed((MouseEvent e) -> {
+			mousePosX = e.getSceneX();
+			mousePosY = e.getSceneY();
+			mouseOldX = e.getSceneX();
+			mouseOldY = e.getSceneY();
+		});
+		
+		scene.setOnMouseDragged((MouseEvent e) -> {
+			mouseOldX = mousePosX;
+			mouseOldY = mousePosY;
+			mousePosX = e.getSceneX();
+			mousePosY = e.getSceneY();
+			mouseDeltaX = (mousePosX - mouseOldX);
+			mouseDeltaY = (mousePosY - mouseOldY);
+
+			double modifier = 1.0;
+			double modifierFactor = 0.1;
+
+			if (e.isControlDown()) {
+				modifier = 0.1;
+			}
+			if (e.isShiftDown()) {
+				modifier = 10.0;
+			}
+			if (e.isPrimaryButtonDown()) {
+				cameraXform.ry.setAngle(cameraXform.ry.getAngle() - mouseDeltaX * modifierFactor * modifier * 2.0);  // +
+				cameraXform.rx.setAngle(cameraXform.rx.getAngle() + mouseDeltaY * modifierFactor * modifier * 2.0);  // -
+			} else if (e.isSecondaryButtonDown()) {
+				double z = camera.getTranslateZ();
+				double newZ = z + mouseDeltaX * modifierFactor * modifier;
+				camera.setTranslateZ(newZ);
+			} else if (e.isMiddleButtonDown()) {
+				cameraXform2.t.setX(cameraXform2.t.getX() + mouseDeltaX * modifierFactor * modifier * 0.3);  // -
+				cameraXform2.t.setY(cameraXform2.t.getY() + mouseDeltaY * modifierFactor * modifier * 0.3);  // -
+			}
+		});
+		
 	}
 
 }
