@@ -1,4 +1,4 @@
-package testDriver;
+package javaFxDriver;
 
 import java.util.HashMap;
 

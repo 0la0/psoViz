@@ -1,4 +1,4 @@
-package testDriver;
+package javaFxDriver;
 
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;

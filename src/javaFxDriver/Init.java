@@ -1,4 +1,4 @@
-package testDriver;
+package javaFxDriver;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -135,7 +135,7 @@ public class Init extends Application {
 			public void handle(long now) {
 				float elapsedTime = (float) ((now - lastTime) / 1000000.0);
 				lastTime = now;
-				if (Math.random() < 0.01) swapGraphicsPanes();
+				//if (Math.random() < 0.01) swapGraphicsPanes();
 				popMngr.update(elapsedTime);
 			}
 		};

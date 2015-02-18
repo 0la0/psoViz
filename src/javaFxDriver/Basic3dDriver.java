@@ -1,4 +1,4 @@
-package testDriver;
+package javaFxDriver;
 
 import java.util.ArrayList;
 
@@ -25,15 +25,16 @@ public class Basic3dDriver extends PopulationDriver {
 	private Xform cameraXform = new Xform();
 	private Xform cameraXform2 = new Xform();
 	private Xform cameraXform3 = new Xform();
-	private double cameraDistance = 1100;
+	private double cameraDistance = 2500;
 
 	private Xform particleGroup = new Xform();
 	private ArrayList<Cube> particles = new ArrayList<Cube>();
-	private int size = 250;
+	private int size = 500;
 	private int halfSize = size;
 
 	private SubScene scene;
 	private Cube goalCube = new Cube(20, 20, 20);
+	private int particleSize = 6;
 	
 	private double mousePosX;
 	private double mousePosY;
@@ -46,15 +47,15 @@ public class Basic3dDriver extends PopulationDriver {
 		super(searchSpaceDimensions, initGoal, numPopulations);
 
 		//---swarm parameters---//
-		this.options.c1 = 0.1f;
-		this.options.c2 = 0.01f;
+		this.options.c1 = 0.006f;
+		this.options.c2 = 0.001f;
 		this.options.speedLimit = 25;
     	
 		//---swarm setup---//
 		Position size = new Position(new int[]{
 			this.size, this.size, this.size, this.size, this.size, this.size});
 		this.fitnessFunction = new FitnessDistance(new int[]{0, 0, 0, 0, 0, 0});
-		int populationSize = 300;
+		int populationSize = 500;
 		this.p = new Population(size, populationSize, fitnessFunction, options);
 		this.options.population = p;
     	
@@ -66,7 +67,7 @@ public class Basic3dDriver extends PopulationDriver {
         
 		this.scene = new SubScene(root, 900, 675, true, SceneAntialiasing.BALANCED);
 		
-		this.scene.setFill(Color.GREY);
+		this.scene.setFill(Color.color(0.75, 0.75, 0.75));
 		this.scene.setCamera(camera);
 		this.handleMouse();
 	}
@@ -89,7 +90,7 @@ public class Basic3dDriver extends PopulationDriver {
 		blackMaterial.setDiffuseColor(Color.BLACK);
 		blackMaterial.setSpecularColor(Color.BLACK);        
         
-		double lineWidth = 0.5;
+		double lineWidth = 1.0;
         ArrayList<Cube> bounds = new ArrayList<Cube>();
         
         for (int i = 0; i < 4; i++)
@@ -130,7 +131,7 @@ public class Basic3dDriver extends PopulationDriver {
 				particle.getPosition().get()[4] / (this.size * 1.0),
 				particle.getPosition().get()[5] / (this.size * 1.0)
 			);
-			Cube box = new Cube(5, 5, 5, color, color);
+			Cube box = new Cube(this.particleSize, this.particleSize, this.particleSize, color, color);
 			box.translate(
 				particle.getPosition().get()[0],
 				particle.getPosition().get()[1],
@@ -171,7 +172,8 @@ public class Basic3dDriver extends PopulationDriver {
 			
 		}
 		
-		double meanFitness = p.update();
+		//double meanFitness = p.update();
+		this.p.update();
 		
 		//---set the cube position from the particle position---//
 		for (int i = 0; i < this.p.getParticles().size(); i++) {
