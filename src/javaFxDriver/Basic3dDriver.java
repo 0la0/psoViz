@@ -34,7 +34,7 @@ public class Basic3dDriver extends PopulationDriver {
 
 	private SubScene scene;
 	private Cube goalCube = new Cube(20, 20, 20);
-	private int particleSize = 6;
+	private int particleSize = 60;
 	
 	private double mousePosX;
 	private double mousePosY;
@@ -62,7 +62,7 @@ public class Basic3dDriver extends PopulationDriver {
 		
 		root.getChildren().add(world);
 		this.buildCamera();
-		this.buildBoundries();
+		//this.buildBoundries();
 		this.buildParticles();
         
 		this.scene = new SubScene(root, 900, 675, true, SceneAntialiasing.BALANCED);

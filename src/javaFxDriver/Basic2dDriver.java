@@ -27,6 +27,8 @@ public class Basic2dDriver extends PopulationDriver {
 		this.p = new Population(size, populationSize, fitnessFunction, options);
 		this.options.population = p;
 		this.setUpUi();
+		
+		this.g2d.setLineWidth(3);
 	}
 	
 	@Override
@@ -61,6 +63,14 @@ public class Basic2dDriver extends PopulationDriver {
 		this.canvas = new Canvas(900, 675);
 		this.g2d = canvas.getGraphicsContext2D();
 		
+		//---SET INITIAL GOAL STATE COLOR---//
+		goalColor = Color.color(
+			fitnessFunction.getGoal()[2] / 255.0,
+			fitnessFunction.getGoal()[3] / 255.0,
+			fitnessFunction.getGoal()[4] / 255.0
+		);
+		
+		//---MOUSE LISTENER TO CHANGE GOAL STATE---//
 		canvas.addEventFilter(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 			p.resetGoal(new int[]{
 				(int) e.getX(), (int) e.getY(), 
