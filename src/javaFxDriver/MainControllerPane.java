@@ -73,9 +73,15 @@ public class MainControllerPane {
 		});
 		this.basicOptPane.add(startStop, 0, 0);
 		
+		Button scatterButton = new Button("Scatter");
+		scatterButton.setOnMouseClicked((MouseEvent e) -> {
+			popMngr.getActiveDriver().getPopulation().scatter();
+		});
+
 		this.basicOptPane.add(new Label("NumDims: "), 0, 1);
 		this.basicOptPane.add(rb2D, 1, 1);
 		this.basicOptPane.add(rb3D, 2, 1);
+		this.basicOptPane.add(scatterButton, 0, 2);
 		
 		mainPane.getChildren().add(this.basicOptPane);
 		mainPane.getChildren().add(this.apc.getPane());

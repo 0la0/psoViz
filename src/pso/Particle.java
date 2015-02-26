@@ -33,7 +33,7 @@ public class Particle {
 		return fitness;
 	}
 	
-	public void update (Position gBest) {
+	public void update (Position gBest, double[] dimWeight) {
 		if (gBest == null) {
 			System.out.println("gBest is null, exiting now");
 			System.exit(0);
@@ -41,10 +41,11 @@ public class Particle {
 		//v[] = v[] + c1 * rand() * (pbest[] - present[]) + c2 * rand() * (gbest[] - present[])
 		//double[] vel = new double[this.numDimensions];
 		for (int i = 0; i < this.numDimensions; i++) {
+
 			this.velocity.get()[i] += 
 					(this.options.c1 * Math.random() * (this.pBest.get()[i] - this.position.get()[i])) + 
 					(this.options.c2 * Math.random() * (gBest.get()[i] - this.position.get()[i]));
-			
+			this.velocity.get()[i] *= dimWeight[i];
 		}
 		this.applySpeedLimit();
 		this.updateVector();

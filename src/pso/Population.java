@@ -1,6 +1,7 @@
 package pso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Population {
@@ -13,10 +14,13 @@ public class Population {
 	private int size;
 	private Position searchSpaceSize;
 	private int numDimensions;
+	private double[] dimWeight;
 	
 	public Population (Position searchSpaceSize, int numParticles, IFitness fitnessFunction, Options options) {
 		this.searchSpaceSize = searchSpaceSize;
 		this.numDimensions = this.searchSpaceSize.getNumDimensions();
+		this.dimWeight = new double[this.numDimensions];
+		Arrays.fill(this.dimWeight, 1);
 		this.size = numParticles;
 		this.fitnessFunction = fitnessFunction;
 		for (int i = 0; i < numParticles; i++) {
@@ -44,7 +48,7 @@ public class Population {
 		}
 		//update positions
 		for (Particle p : particles) {
-			p.update(gBest);
+			p.update(gBest, this.dimWeight);
 		}
 		//return mean fitness
 		return fitnessSum / (this.size * 1.0);
@@ -103,7 +107,6 @@ public class Population {
 	}
 	
 	public void scatter () {
-		System.out.println("population scatter");
 		this.gBestVal = 9999.9f;
 		for (Particle p : this.particles) {
 			p.scatter(this.getRandomVelocity(true));
@@ -116,6 +119,14 @@ public class Population {
 	
 	public void setGlobalBest (Position gBest) {
 		this.gBest = gBest;
+	}
+	
+	public void setDimWeight (int index, double val) {
+		if (index < 0 || index >= this.dimWeight.length) {
+			System.out.println("Population.setDimWeight outOfBounds");
+			return;
+		}
+		this.dimWeight[index] = val;
 	}
 	
 }

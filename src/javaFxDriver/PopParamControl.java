@@ -2,10 +2,13 @@ package javaFxDriver;
 
 import java.util.ArrayList;
 
+import pso.Population;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
@@ -32,12 +35,13 @@ public class PopParamControl {
 	
 	public Pane rebuildPane () {
 		this.mainPane.getChildren().clear();
+		Population pop = popMngr.getActiveDriver().getPopulation();
 		for (int i = 0; i < this.popMngr.getActiveDriver().getNumDims(); i++) {
-			Param p = new Param(i);
+			Param p = new Param(i, this.popMngr.getActiveDriver().getParamLabel(i));
 			p.addToPane(this.mainPane, i);
 			p.slider.valueProperty().addListener( 
 				(ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
-					popMngr.setParamWeight(p.index, (double) new_val.doubleValue());
+					pop.setDimWeight(p.index, (double) new_val.doubleValue());
 					p.value.setText(String.format("%.2f", (double) new_val.doubleValue()));
 			});
 		}
@@ -55,9 +59,9 @@ public class PopParamControl {
 		public Label value = new Label();
 		public int index;
 		
-		public Param (int index) {
+		public Param (int index, String label) {
 			this.index = index;
-			this.label.setText(index + "");
+			this.label.setText(label);
 			this.value.setText(1 + "");
 		}
 		

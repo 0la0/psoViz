@@ -14,6 +14,9 @@ import pso.Position;
 public class Basic2dDriver extends PopulationDriver {
 
 	private Canvas canvas = new Canvas(900, 675);
+	{this.paramList = new String[]{
+		"X", "Y", "R", "G", "B"
+	};}
 	
 	public Basic2dDriver(int[] searchSpaceDimensions, int[] initGoal, int numPopulations) {
 		super(searchSpaceDimensions, initGoal, numPopulations);

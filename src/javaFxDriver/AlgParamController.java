@@ -52,19 +52,19 @@ public class AlgParamController {
 		this.c1Slider.valueProperty().addListener( 
 			(ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
 				popMngr.setC1(new_val.floatValue());
-				this.c1Value.setText(String.format("%.5f", new_val));
+				this.c1Value.setText(String.format("%.3f", new_val));
 		});
 		this.c2Slider.valueProperty().addListener( 
 			(ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
 				float val = (float) (new_val.floatValue() / 100.0);
 				popMngr.setC2(val);
-				this.c2Value.setText(String.format("%.5f", val));
+				this.c2Value.setText(String.format("%.3f", val));
 		});
 		this.speedSlider.valueProperty().addListener( 
 			(ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
 				float val = (float) (new_val.floatValue() * 100.0);
 				popMngr.setSpeedLimit(val);
-				this.speedValue.setText(String.format("%.5f", val));
+				this.speedValue.setText(String.format("%.3f", val));
 		});
 	}
 	

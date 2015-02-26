@@ -35,7 +35,7 @@ public class Basic3dDriver extends PopulationDriver {
 
 	private SubScene scene;
 	private Cube goalCube = new Cube(20, 20, 20);
-	private int particleSize = 10;
+	private int particleSize = 70;
 	
 	private double mousePosX;
 	private double mousePosY;
@@ -44,6 +44,9 @@ public class Basic3dDriver extends PopulationDriver {
 	private double mouseDeltaX;
 	private double mouseDeltaY;
 	
+	{this.paramList = new String[]{
+		"X", "Y", "Z", "Red", "Green", "Blue", "Alpha", "Beta", "Gamma"
+	};}
 	
 	//private int numDimensions;
 	
@@ -195,11 +198,7 @@ public class Basic3dDriver extends PopulationDriver {
 			Cube cube = particles.get(i);
 			int[] position = particle.getPosition().get();
 			//---SET POSITION---//
-			cube.translate(
-				position[0] * this.paramMult[0],
-				position[1] * this.paramMult[1],
-				position[2] * this.paramMult[2]
-			);
+			cube.translate(position[0], position[1], position[2]);
 			//---SET COLOR---//
 			double cubeR = ((position[3] + this.size) / (this.size * 2.0));
 			double cubeG = ((position[4] + this.size) / (this.size * 2.0));

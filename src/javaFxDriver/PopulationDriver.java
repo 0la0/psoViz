@@ -21,6 +21,7 @@ public abstract class PopulationDriver {
 	protected Color goalColor = Color.BLACK;
 	protected int numDimensions = 0;
 	protected double[] paramMult;
+	protected String[] paramList;
 	
 	public PopulationDriver (int[] searchSpaceDimensions, int[] initGoal, int numPopulations) {}
 	
@@ -45,6 +46,18 @@ public abstract class PopulationDriver {
 		}
 		this.paramMult[index] = val;
 		System.out.println("param index: " + index + ", val: " + this.paramMult[index]);
+	}
+	
+	public Population getPopulation () {
+		return this.p;
+	}
+	
+	public String getParamLabel (int index) {
+		if (index < 0 || index >= this.paramList.length) {
+			System.out.println("PopulationDriver.getParamLabel indexOutOfBounds");
+			return null;
+		}
+		return this.paramList[index];
 	}
 	
 	public void addPopulation (int populationSize) {}

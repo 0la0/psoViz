@@ -42,9 +42,5 @@ public class PopulationManager {
 		if (this.activeDriver == null) return;
 		this.activeDriver.getOptions().speedLimit = val;
 	}
-	
-	public void setParamWeight (int index, double val) {
-		this.activeDriver.setParamMult(index, val);
-	}
 
 }
