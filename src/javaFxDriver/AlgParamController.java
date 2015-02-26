@@ -44,7 +44,7 @@ public class AlgParamController {
        
 		this.mainPane.setStyle("" +
 			"-fx-background-color: #aaaadd;" +
-			"-fx-border-color: #333333;" + 
+			"-fx-border-color: #333333;" +
 			"-fx-border-width: 2px;" +
 			"-fx-border-radius: 4px;"
 		);

@@ -1,6 +1,7 @@
 package javaFxDriver;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import pso.FitnessDistance;
 import pso.Particle;
@@ -34,7 +35,7 @@ public class Basic3dDriver extends PopulationDriver {
 
 	private SubScene scene;
 	private Cube goalCube = new Cube(20, 20, 20);
-	private int particleSize = 70;
+	private int particleSize = 10;
 	
 	private double mousePosX;
 	private double mousePosY;
@@ -43,7 +44,8 @@ public class Basic3dDriver extends PopulationDriver {
 	private double mouseDeltaX;
 	private double mouseDeltaY;
 	
-	private int numDimensions;
+	
+	//private int numDimensions;
 	
 	public Basic3dDriver(int[] searchSpaceDimensions, int[] initGoal, int numPopulations) {
 		super(searchSpaceDimensions, initGoal, numPopulations);
@@ -54,7 +56,9 @@ public class Basic3dDriver extends PopulationDriver {
 		this.options.speedLimit = 25;
     	
 		//---swarm setup---//
-		this.numDimensions = 9;
+		this.numDimensions = 9; //TODO: Set dynamically
+		this.paramMult = new double[this.numDimensions];
+		Arrays.fill(this.paramMult, 1);
 		Position size = new Position(new int[]{
 			this.size, this.size, this.size, 
 			this.size, this.size, this.size,
@@ -68,7 +72,7 @@ public class Basic3dDriver extends PopulationDriver {
 		
 		root.getChildren().add(world);
 		this.buildCamera();
-		//this.buildBoundries();
+		this.buildBoundries();
 		this.buildParticles();
         
 		this.scene = new SubScene(root, 900, 675, true, SceneAntialiasing.BALANCED);
@@ -191,16 +195,20 @@ public class Basic3dDriver extends PopulationDriver {
 			Cube cube = particles.get(i);
 			int[] position = particle.getPosition().get();
 			//---SET POSITION---//
-			cube.translate(position[0], position[1], position[2]);
+			cube.translate(
+				position[0] * this.paramMult[0],
+				position[1] * this.paramMult[1],
+				position[2] * this.paramMult[2]
+			);
 			//---SET COLOR---//
-			double cubeR = (position[3] + this.size) / (this.size * 2.0);
-			double cubeG = (position[4] + this.size) / (this.size * 2.0);
-			double cubeB = (position[5] + this.size) / (this.size * 2.0);;
+			double cubeR = ((position[3] + this.size) / (this.size * 2.0));
+			double cubeG = ((position[4] + this.size) / (this.size * 2.0));
+			double cubeB = ((position[5] + this.size) / (this.size * 2.0));;
 			cube.setColor(cubeR, cubeG, cubeB);
 			
-			double rotX = ((position[6] + this.size) / (this.size * 2.0) * 360);
-			double rotY = ((position[7] + this.size) / (this.size * 2.0) * 360);
-			double rotZ = ((position[8] + this.size) / (this.size * 2.0) * 360);
+			double rotX = (((position[6] + this.size) / (this.size * 2.0) * 360));
+			double rotY = (((position[7] + this.size) / (this.size * 2.0) * 360));
+			double rotZ = (((position[8] + this.size) / (this.size * 2.0) * 360));
 			cube.setRotate(rotX, rotY, rotZ);
 		}
 	}

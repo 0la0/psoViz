@@ -22,11 +22,12 @@ public class MainControllerPane {
 	private GridPane basicOptPane = new GridPane();
 	private AlgParamController apc;
 	private boolean timerIsRunning = false;
+	private PopParamControl ppc;
 	
 	public MainControllerPane (PopulationManager popMngr, AnimationTimer timer, BorderPane activeGraphicsPane) {
 		//this.popMngr = popMngr;
 		this.apc = new AlgParamController(popMngr);
-		
+		this.ppc = new PopParamControl(popMngr);
 		this.mainPane.setMinWidth(250);
 		
 		//---2D / 3D RADIO BUTTON---//
@@ -53,9 +54,11 @@ public class MainControllerPane {
 				startStop.setText("STOP");
 				if (radioButtons.getSelectedToggle() == rb2D) {
 					popMngr.setActiveDriver("basic2D");
+					ppc.rebuildPane();
 				}
 				else {
 					popMngr.setActiveDriver("basic3D");
+					ppc.rebuildPane();
 				}
 				activeGraphicsPane.setCenter(popMngr.getActiveDriver().getUiNode());
 				timer.start();
@@ -74,9 +77,9 @@ public class MainControllerPane {
 		this.basicOptPane.add(rb2D, 1, 1);
 		this.basicOptPane.add(rb3D, 2, 1);
 		
-		
 		mainPane.getChildren().add(this.basicOptPane);
 		mainPane.getChildren().add(this.apc.getPane());
+		mainPane.getChildren().add(ppc.getPane());
 	}
 	
 	public Pane getPane () {

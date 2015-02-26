@@ -1,5 +1,7 @@
 package javaFxDriver;
 
+import java.util.Arrays;
+
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
@@ -22,6 +24,9 @@ public class Basic2dDriver extends PopulationDriver {
 		this.options.speedLimit = 10.0f;
     	
 		int populationSize = 1000;
+		this.numDimensions = searchSpaceDimensions.length;
+		this.paramMult = new double[this.numDimensions];
+		Arrays.fill(this.paramMult, 1);
 		Position size = new Position(searchSpaceDimensions.clone());
 		this.fitnessFunction = new FitnessDistance(initGoal.clone());
 		this.p = new Population(size, populationSize, fitnessFunction, options);

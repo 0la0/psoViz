@@ -16,6 +16,7 @@ public class Init extends Application {
 	private BorderPane activeGraphicsPane = new BorderPane();
 	private PopulationManager popMngr = new PopulationManager();
 	
+	/*
 	private void swapGraphicsPanes () {
 		if (this.popMngr.getActiveDriver().toString().equals("basic2D")) {
 			this.popMngr.setActiveDriver("basic3D");
@@ -25,6 +26,7 @@ public class Init extends Application {
 		}
 		this.activeGraphicsPane.setCenter(this.popMngr.getActiveDriver().getUiNode());
 	}
+	*/
 
 	@Override
 	public void start (Stage stage) {
