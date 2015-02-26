@@ -34,7 +34,7 @@ public class Basic3dDriver extends PopulationDriver {
 
 	private SubScene scene;
 	private Cube goalCube = new Cube(20, 20, 20);
-	private int particleSize = 60;
+	private int particleSize = 70;
 	
 	private double mousePosX;
 	private double mousePosY;
@@ -42,6 +42,8 @@ public class Basic3dDriver extends PopulationDriver {
 	private double mouseOldY;
 	private double mouseDeltaX;
 	private double mouseDeltaY;
+	
+	private int numDimensions;
 	
 	public Basic3dDriver(int[] searchSpaceDimensions, int[] initGoal, int numPopulations) {
 		super(searchSpaceDimensions, initGoal, numPopulations);
@@ -52,9 +54,13 @@ public class Basic3dDriver extends PopulationDriver {
 		this.options.speedLimit = 25;
     	
 		//---swarm setup---//
+		this.numDimensions = 9;
 		Position size = new Position(new int[]{
-			this.size, this.size, this.size, this.size, this.size, this.size});
-		this.fitnessFunction = new FitnessDistance(new int[]{0, 0, 0, 0, 0, 0});
+			this.size, this.size, this.size, 
+			this.size, this.size, this.size,
+			this.size, this.size, this.size
+		});
+		this.fitnessFunction = new FitnessDistance(new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0});
 		int populationSize = 500;
 		this.p = new Population(size, populationSize, fitnessFunction, options);
 		this.options.population = p;
@@ -154,7 +160,7 @@ public class Basic3dDriver extends PopulationDriver {
 	public void update (float elapsedTime) {
 		//---CHANGE GOAL---//
 		if (Math.random() < 0.01) {
-			int[] newGoal = new int[6];
+			int[] newGoal = new int[this.numDimensions];
 			for (int i = 0; i < newGoal.length; i++) {
 				newGoal[i] = (int) (this.size * this.getPosNeg() * Math.random());
 			}
@@ -170,6 +176,10 @@ public class Basic3dDriver extends PopulationDriver {
 			double goalB = (this.fitnessFunction.getGoal()[5] + this.size) / (this.size * 2.0);
 			this.goalCube.setColor(goalR, goalG, goalB);
 			
+			double rotX = ((this.fitnessFunction.getGoal()[6] + this.size) / (this.size * 2.0) * 360);
+			double rotY = ((this.fitnessFunction.getGoal()[7] + this.size) / (this.size * 2.0) * 360);
+			double rotZ = ((this.fitnessFunction.getGoal()[8] + this.size) / (this.size * 2.0) * 360);
+			this.goalCube.setRotate(rotX, rotY, rotZ);
 		}
 		
 		//double meanFitness = p.update();
@@ -187,6 +197,11 @@ public class Basic3dDriver extends PopulationDriver {
 			double cubeG = (position[4] + this.size) / (this.size * 2.0);
 			double cubeB = (position[5] + this.size) / (this.size * 2.0);;
 			cube.setColor(cubeR, cubeG, cubeB);
+			
+			double rotX = ((position[6] + this.size) / (this.size * 2.0) * 360);
+			double rotY = ((position[7] + this.size) / (this.size * 2.0) * 360);
+			double rotZ = ((position[8] + this.size) / (this.size * 2.0) * 360);
+			cube.setRotate(rotX, rotY, rotZ);
 		}
 	}
 	

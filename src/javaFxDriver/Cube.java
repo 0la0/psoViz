@@ -2,6 +2,8 @@ package javaFxDriver;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import javafx.scene.transform.Affine;
+import javafx.scene.transform.Rotate;
 
 
 public class Cube {
@@ -11,24 +13,33 @@ public class Cube {
 	private Color color;
 	private Color difuseColor = null;
 	private Color specularColor = null;
+	private Affine affine = new Affine();
+	
+	private Rotate rx = new Rotate(0, Rotate.X_AXIS);
+	private Rotate ry = new Rotate(0, Rotate.Y_AXIS);
+    private Rotate rz = new Rotate(0, Rotate.Z_AXIS);
 	
 	public Cube () {
 		this.box = new Box(0, 0, 0);
+		this.box.getTransforms().addAll(rz, ry, rx);
 		this.setNewColor(Color.RED, Color.RED);
 	}
 	
 	public Cube (int x, int y, int z) {
 		this.box = new Box(x, y, z);
+		this.box.getTransforms().addAll(rz, ry, rx);
 		this.setNewColor(Color.RED, Color.RED);
 	}
 	
 	public Cube (double x, double y, double z, PhongMaterial material) {
 		this.box = new Box(x, y, z);
+		this.box.getTransforms().addAll(rz, ry, rx);
 		this.setMaterial(material);
 	}
 	
 	public Cube (double x, double y, double z, Color difuseColor, Color specularColor) {
 		this.box = new Box(x, y, z);
+		this.box.getTransforms().addAll(rz, ry, rx);
 		this.setNewColor(difuseColor, specularColor);
 	}
 	
@@ -73,6 +84,11 @@ public class Cube {
 	public Color getColor () {
 		return this.color;
 	}
-    
+	
+	public void setRotate(double x, double y, double z) {
+		this.rx.setAngle(x);
+		this.ry.setAngle(y);
+		this.rz.setAngle(z);
+	}
 
 }

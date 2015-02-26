@@ -13,7 +13,7 @@ public class Init extends Application {
 	private long lastTime;
 	
 	private BorderPane mainBorderPane = new BorderPane();
-	private BorderPane activePane = new BorderPane();
+	private BorderPane activeGraphicsPane = new BorderPane();
 	private PopulationManager popMngr = new PopulationManager();
 	
 	private void swapGraphicsPanes () {
@@ -23,7 +23,7 @@ public class Init extends Application {
 		else {
 			this.popMngr.setActiveDriver("basic2D");
 		}
-		this.activePane.setCenter(this.popMngr.getActiveDriver().getUiNode());
+		this.activeGraphicsPane.setCenter(this.popMngr.getActiveDriver().getUiNode());
 	}
 
 	@Override
@@ -45,8 +45,8 @@ public class Init extends Application {
 		this.popMngr.addDriver("basic3D", basic3D);
 		//this.popMngr.setActiveDriver("basic3D");
 
-		this.activePane.setCenter(this.popMngr.getActiveDriver().getUiNode());
-		this.activePane.setStyle("" +
+		this.activeGraphicsPane.setCenter(this.popMngr.getActiveDriver().getUiNode());
+		this.activeGraphicsPane.setStyle("" +
 			"-fx-background-color: #ffffff;" +
 			"-fx-border-color: #333333;" + 
 			"-fx-border-width: 2px;" +
@@ -67,10 +67,10 @@ public class Init extends Application {
 		//---BUILD MAIN UI---//
 		
 		//---CONTROLLER PANEL ON THE LEFT---//
-		MainControllerPane mpc = new MainControllerPane(this.popMngr, timer);
+		MainControllerPane mpc = new MainControllerPane(this.popMngr, timer, this.activeGraphicsPane);
 		
 		mainBorderPane.setLeft(mpc.getPane());
-		mainBorderPane.setCenter(this.activePane);
+		mainBorderPane.setCenter(this.activeGraphicsPane);
 		scene.setRoot(mainBorderPane);
 		stage.show();
 	}
