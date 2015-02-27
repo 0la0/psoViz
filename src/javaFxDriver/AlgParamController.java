@@ -24,7 +24,7 @@ public class AlgParamController {
 	private Label c2Value = new Label(Double.toString(c2Slider.getValue()));
 	private Label speedValue = new Label(Double.toString(speedSlider.getValue()));
 	
-	public AlgParamController (PopulationManager popMngr) {
+	public AlgParamController (PopulationManager popMngr, int index) {
 		this.mainPane.setPadding(new Insets(10, 10, 10, 10));
 		this.mainPane.setVgap(10);
 		this.mainPane.setHgap(6);
@@ -51,19 +51,19 @@ public class AlgParamController {
         
 		this.c1Slider.valueProperty().addListener( 
 			(ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
-				popMngr.setC1(new_val.floatValue());
+				popMngr.setC1(index, new_val.floatValue());
 				this.c1Value.setText(String.format("%.3f", new_val));
 		});
 		this.c2Slider.valueProperty().addListener( 
 			(ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
 				float val = (float) (new_val.floatValue() / 100.0);
-				popMngr.setC2(val);
+				popMngr.setC2(index, val);
 				this.c2Value.setText(String.format("%.3f", val));
 		});
 		this.speedSlider.valueProperty().addListener( 
 			(ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
 				float val = (float) (new_val.floatValue() * 100.0);
-				popMngr.setSpeedLimit(val);
+				popMngr.setSpeedLimit(index, val);
 				this.speedValue.setText(String.format("%.3f", val));
 		});
 	}

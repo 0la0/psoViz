@@ -18,7 +18,7 @@ public class PopParamControl {
 	private GridPane mainPane = new GridPane();
 	private PopulationManager popMngr = new PopulationManager();
 	
-	public PopParamControl (PopulationManager popMngr) {
+	public PopParamControl (PopulationManager popMngr, int index) {
 		this.popMngr = popMngr;
 		this.mainPane.setPadding(new Insets(10, 10, 10, 10));
 		this.mainPane.setVgap(10);
@@ -31,11 +31,12 @@ public class PopParamControl {
 			"-fx-border-width: 2px;" +
 			"-fx-border-radius: 4px;"
 		);
+		this.rebuildPane(index);
 	}
 	
-	public Pane rebuildPane () {
+	public Pane rebuildPane (int index) {
 		this.mainPane.getChildren().clear();
-		Population pop = popMngr.getActiveDriver().getPopulation();
+		Population pop = popMngr.getActiveDriver().getPopulation(index);
 		for (int i = 0; i < this.popMngr.getActiveDriver().getNumDims(); i++) {
 			Param p = new Param(i, this.popMngr.getActiveDriver().getParamLabel(i));
 			p.addToPane(this.mainPane, i);

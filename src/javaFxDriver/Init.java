@@ -34,17 +34,18 @@ public class Init extends Application {
 		Scene scene = new Scene(root, 1154, 680, Color.WHITE);
 		stage.setScene(scene);
 		stage.setTitle("Particle Swarm Optimization Visualization");
-
 		//---BUILD POPULATION DRIVERS---//
 		int[] searchSpace = new int[]{900, 675, 255, 255, 255};
 		int[] initGoal = new int[]{255, 255, 255, 255, 255};
-
+		
+		
 		PopulationDriver basic2D = new Basic2dDriver(searchSpace, initGoal, -1);
 		this.popMngr.addDriver("basic2D", basic2D);
 		this.popMngr.setActiveDriver("basic2D");
-
+		/*
 		PopulationDriver basic3D = new Basic3dDriver(searchSpace, initGoal, -1);
 		this.popMngr.addDriver("basic3D", basic3D);
+		*/
 		//this.popMngr.setActiveDriver("basic3D");
 
 		this.activeGraphicsPane.setCenter(this.popMngr.getActiveDriver().getUiNode());

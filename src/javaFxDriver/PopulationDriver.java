@@ -1,5 +1,7 @@
 package javaFxDriver;
 
+import java.util.ArrayList;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.Node;
@@ -12,9 +14,11 @@ import pso.Population;
  */
 public abstract class PopulationDriver {
 	
-	protected Options options = new Options();
-	protected Population p;
+	//protected Options options = new Options();
+	//protected Population p; //change to collection of populations
 	protected IFitness fitnessFunction;
+	protected ArrayList<Options> opts = new ArrayList<Options>();
+	protected ArrayList<Population> populations = new ArrayList<Population>();
 	
 	protected int goalRadius = 20;
 	protected GraphicsContext g2d;
@@ -22,8 +26,11 @@ public abstract class PopulationDriver {
 	protected int numDimensions = 0;
 	protected double[] paramMult;
 	protected String[] paramList;
+	protected int numPopulations;
 	
-	public PopulationDriver (int[] searchSpaceDimensions, int[] initGoal, int numPopulations) {}
+	public PopulationDriver (int[] searchSpaceDimensions, int[] initGoal, int numPopulations) {
+		this.numPopulations = numPopulations;
+	}
 	
 	protected double getColor (float val, int size) {
 		if (val < 0) return 0;
@@ -31,8 +38,11 @@ public abstract class PopulationDriver {
 		return val / (size * 1.0);
 	}
 	
-	public Options getOptions () {
-		return this.options;
+	public Options getOptions (int index) {
+		if (index < 0 || index >= this.opts.size()) {
+			System.out.println("PopulationDriver.getOptions indexOutOfBounds");
+		}
+		return this.opts.get(index);
 	}
 	
 	public int getNumDims () {
@@ -48,8 +58,11 @@ public abstract class PopulationDriver {
 		System.out.println("param index: " + index + ", val: " + this.paramMult[index]);
 	}
 	
-	public Population getPopulation () {
-		return this.p;
+	public Population getPopulation (int index) {
+		if (index < 0 || index >= this.populations.size()) {
+			System.out.println("PopulationDriver.getPopulation indexOutOfBounds");
+		}
+		return this.populations.get(index);
 	}
 	
 	public String getParamLabel (int index) {

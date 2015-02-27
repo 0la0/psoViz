@@ -28,19 +28,23 @@ public class PopulationManager {
 	
 	//public List getDrivers () {}
 	
-	public void setC1 (float val) {
+	public void setC1 (int popIndex, float val) {
 		if (this.activeDriver == null) return;
-		this.activeDriver.getOptions().c1 = val;
+		this.activeDriver.getOptions(popIndex).c1 = val;
 	}
 	
-	public void setC2 (float val) {
+	public void setC2 (int popIndex, float val) {
 		if (this.activeDriver == null) return;
-		this.activeDriver.getOptions().c2 = val;
+		this.activeDriver.getOptions(popIndex).c2 = val;
 	}
 	
-	public void setSpeedLimit (float val) {
+	public void setSpeedLimit (int popIndex, float val) {
 		if (this.activeDriver == null) return;
-		this.activeDriver.getOptions().speedLimit = val;
+		this.activeDriver.getOptions(popIndex).speedLimit = val;
+	}
+	
+	public void clearPopulations () {
+		this.drivers.clear();
 	}
 
 }
