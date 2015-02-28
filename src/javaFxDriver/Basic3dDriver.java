@@ -51,8 +51,8 @@ public class Basic3dDriver extends PopulationDriver {
 	
 	//private int numDimensions;
 	
-	public Basic3dDriver(int[] searchSpaceDimensions, int[] initGoal, int numPopulations) {
-		super(searchSpaceDimensions, initGoal, numPopulations);
+	public Basic3dDriver(int[] searchSpaceDimensions, int[] initGoal, int numPopulations, int[] popSizes) {
+		super(searchSpaceDimensions, initGoal, numPopulations, popSizes);
 
 		//---swarm parameters---//
 		/*
@@ -71,14 +71,14 @@ public class Basic3dDriver extends PopulationDriver {
 			this.size, this.size, this.size
 		});
 		this.fitnessFunction = new FitnessDistance(new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0});
-		int populationSize = 50;
+		//int populationSize = 50;
 		
 		for (int i = 0; i < this.numPopulations; i++) {
 			Options options = new Options();
 			options.c1 = 0.006f;
 			options.c2 = 0.001f;
 			options.speedLimit = 25;
-			Population p = new Population(size, populationSize, fitnessFunction, options);
+			Population p = new Population(size, popSizes[i], fitnessFunction, options);
 			options.population = p;
 			this.opts.add(options);
 			this.populations.add(p);
@@ -92,7 +92,7 @@ public class Basic3dDriver extends PopulationDriver {
         
 		this.scene = new SubScene(root, 900, 675, true, SceneAntialiasing.BALANCED);
 		
-		this.scene.setFill(Color.color(0.75, 0.75, 0.75));
+		this.scene.setFill(Color.color(0.85, 0.85, 1.0));
 		this.scene.setCamera(camera);
 		this.handleMouse();
 	}

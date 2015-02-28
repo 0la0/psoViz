@@ -39,7 +39,7 @@ public class Init extends Application {
 		int[] initGoal = new int[]{255, 255, 255, 255, 255};
 		
 		
-		PopulationDriver basic2D = new Basic2dDriver(searchSpace, initGoal, -1);
+		PopulationDriver basic2D = new Basic2dDriver(searchSpace, initGoal, -1, new int[100]);
 		this.popMngr.addDriver("basic2D", basic2D);
 		this.popMngr.setActiveDriver("basic2D");
 		/*

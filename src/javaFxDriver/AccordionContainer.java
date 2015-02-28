@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -21,10 +24,10 @@ public class AccordionContainer {
 		this.accContainer.getChildren().add(parentPane);
 	}
 	
-	public void rebuildAccordion (int popSize) {
+	public void rebuildAccordion (int numPopulations) {
 		this.parentPane.getPanes().clear();
 		this.childrenPanes.clear();
-		for (int i = 0; i < popSize; i++) {
+		for (int i = 0; i < numPopulations; i++) {
 			AlgParamController apc = new AlgParamController(this.popMngr, i);
 			PopParamControl ppc = new PopParamControl(this.popMngr, i);
 			Button scatterButton = new Button("Scatter " + i);
@@ -33,7 +36,12 @@ public class AccordionContainer {
 				int label = Integer.parseInt(scatterButton.getText().substring(labelIndex - 1, labelIndex));
 				popMngr.getActiveDriver().getPopulation(label).scatter();
 			});
-			VBox cont = new VBox(scatterButton, apc.getPane(), ppc.getPane());
+			/*
+			Label popSizeLabel = new Label("Population Size: ");
+			TextField popSize = new TextField("100");
+			HBox pSizeContainer = new HBox(popSizeLabel, popSize);
+			*/
+			VBox cont = new VBox(apc.getPane(), ppc.getPane(), scatterButton);
 			this.childrenPanes.add(new TitledPane("population " + i, cont));
 		}
 		this.parentPane.getPanes().addAll(childrenPanes);

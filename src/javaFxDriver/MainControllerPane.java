@@ -1,5 +1,7 @@
 package javaFxDriver;
 
+import java.util.ArrayList;
+
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -19,24 +21,26 @@ import javafx.scene.input.MouseEvent;
 
 public class MainControllerPane {
 	
-	//private PopulationManager popMngr;
 	private VBox mainPane = new VBox();
 	private GridPane basicOptPane = new GridPane();
-	//private AlgParamController apc;
 	private boolean timerIsRunning = false;
-	//private PopParamControl ppc;
 	private AccordionContainer accordionPane;
 	private Slider numPopSlider = new Slider(1, 10, 1);
 	private PopulationDriver basic2D;
 	private PopulationDriver basic3D;
+	private ArrayList<PopSizePane> sizePanes = new ArrayList<PopSizePane>();
+	private VBox sizeParentPane = new VBox();
 	
 	public MainControllerPane (PopulationManager popMngr, AnimationTimer timer, BorderPane activeGraphicsPane) {
-		//this.popMngr = popMngr;
 		this.accordionPane = new AccordionContainer(popMngr);
-		
-		//this.apc = new AlgParamController(popMngr);
-		//this.ppc = new PopParamControl(popMngr);
 		this.mainPane.setMinWidth(250);
+		
+		this.sizeParentPane.setStyle("" +
+			"-fx-background-color: #ffffff;" +
+			"-fx-border-color: #333333;" + 
+			"-fx-border-width: 2px;" +
+			"-fx-border-radius: 4px;"
+		);
 		
 		//---2D / 3D RADIO BUTTON---//
 		ToggleGroup radioButtons = new ToggleGroup();
@@ -61,19 +65,23 @@ public class MainControllerPane {
 		Button buildButton = new Button("BUILD SCENE");
 		buildButton.setOnMouseClicked((MouseEvent e) -> {
 			/*
-			 * TODO: 
-			 * 		*Build accordian panel
-			 * 		*Init population
-			 * 		*Render initial frame
+			 *	-Build accordion panel
+			 * 	-Init population
+			 * 	-Render initial frame
 			 */
 			popMngr.clearPopulations();
+			int[] popSizes = new int[(int) numPopSlider.getValue()];
+			for (int i = 0; i < popSizes.length; i++) {
+				popSizes[i] = sizePanes.get(i).getSize();
+			}
+			
 			if (radioButtons.getSelectedToggle() == rb2D) {
-				basic2D = new Basic2dDriver(searchSpace, initGoal, (int) numPopSlider.getValue());
+				basic2D = new Basic2dDriver(searchSpace, initGoal, (int) numPopSlider.getValue(), popSizes);
 				popMngr.addDriver("basic2D", basic2D);
 				popMngr.setActiveDriver("basic2D");
 			}
 			else {
-				basic3D = new Basic3dDriver(searchSpace, initGoal, (int) numPopSlider.getValue());
+				basic3D = new Basic3dDriver(searchSpace, initGoal, (int) numPopSlider.getValue(), popSizes);
 				popMngr.addDriver("basic3D", basic3D);
 				popMngr.setActiveDriver("basic3D");
 			}
@@ -109,7 +117,15 @@ public class MainControllerPane {
 		numPopSlider.setBlockIncrement(1);
 		numPopSlider.valueProperty().addListener( 
 			(ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
-				numPopValue.setText(String.format("%d", (int) new_val.intValue()));
+				int val = (int) new_val.intValue();
+				numPopValue.setText(String.format("%d", val));
+				sizeParentPane.getChildren().clear();
+				sizePanes.clear();
+				for (int i = 0; i < val; i++) {
+					PopSizePane psp = new PopSizePane(i);
+					sizePanes.add(psp);
+					sizeParentPane.getChildren().add(psp.getPane());
+				}
 		});
 		this.basicOptPane.add(numPopLabel, 0, 2);
 		this.basicOptPane.add(numPopSlider, 1, 2);
@@ -117,15 +133,12 @@ public class MainControllerPane {
 		
 		Label activePopLabel = new Label("Select Population");
 		
-		
-		mainPane.getChildren().add(this.basicOptPane);
-		
-		mainPane.getChildren().add(this.accordionPane.getPane());
-		
-		//====EACH SWARM SHOULD HAVE THEIR OWN CONTROLS===//
-		///...create an accordion for each
-		//mainPane.getChildren().add(this.apc.getPane());
-		//mainPane.getChildren().add(ppc.getPane());
+		//---BUILD SCENE, START/STOP, NUM POPULATIONS---//
+		this.mainPane.getChildren().add(this.basicOptPane);
+		//---POPULATION SIZE PANE---//
+		this.mainPane.getChildren().add(this.sizeParentPane);
+		//---INDIVIDUAL POPULATION PARAMETER CONTROLS---//
+		this.mainPane.getChildren().add(this.accordionPane.getPane());
 	}
 	
 	public Pane getPane () {

@@ -28,7 +28,7 @@ public abstract class PopulationDriver {
 	protected String[] paramList;
 	protected int numPopulations;
 	
-	public PopulationDriver (int[] searchSpaceDimensions, int[] initGoal, int numPopulations) {
+	public PopulationDriver (int[] searchSpaceDimensions, int[] initGoal, int numPopulations, int[] popSizes) {
 		this.numPopulations = numPopulations;
 	}
 	

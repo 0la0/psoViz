@@ -19,8 +19,8 @@ public class Basic2dDriver extends PopulationDriver {
 		"X", "Y", "R", "G", "B"
 	};}
 	
-	public Basic2dDriver(int[] searchSpaceDimensions, int[] initGoal, int numPopulations) {
-		super(searchSpaceDimensions, initGoal, numPopulations);
+	public Basic2dDriver(int[] searchSpaceDimensions, int[] initGoal, int numPopulations, int[] popSizes) {
+		super(searchSpaceDimensions, initGoal, numPopulations, popSizes);
 		
 		//---BUILD PSO---//
 		/*
@@ -29,7 +29,7 @@ public class Basic2dDriver extends PopulationDriver {
 		this.options.speedLimit = 10.0f;
 		*/
     	
-		int populationSize = 1000;
+		//int populationSize = 1000;
 		this.numDimensions = searchSpaceDimensions.length;
 		this.paramMult = new double[this.numDimensions];
 		Arrays.fill(this.paramMult, 1);
@@ -40,7 +40,7 @@ public class Basic2dDriver extends PopulationDriver {
 			options.c1 = 0.01f;
 			options.c2 = 0.001f;
 			options.speedLimit = 10.0f;
-			Population pop = new Population(size, populationSize, fitnessFunction, options);
+			Population pop = new Population(size, popSizes[i], fitnessFunction, options);
 			options.population = pop;
 			this.opts.add(options);
 			this.populations.add(pop);
