@@ -7,6 +7,10 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.GridPane;
 
+/*
+ * AlgParamController is the UI controller for the
+ * PSO parameters of a given population
+ */
 public class AlgParamController {
 	
 	private GridPane mainPane = new GridPane();

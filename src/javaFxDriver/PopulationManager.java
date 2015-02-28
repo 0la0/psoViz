@@ -2,6 +2,10 @@ package javaFxDriver;
 
 import java.util.HashMap;
 
+/*
+ * PopulationManager manages and abstract the communication
+ * between the UI and the population drivers
+ */
 public class PopulationManager {
 	
 	private HashMap<String, PopulationDriver> drivers = new HashMap<String, PopulationDriver>();
@@ -25,8 +29,6 @@ public class PopulationManager {
 		if (this.activeDriver == null) return;
 		this.activeDriver.update(elapsedTime);
 	}
-	
-	//public List getDrivers () {}
 	
 	public void setC1 (int popIndex, float val) {
 		if (this.activeDriver == null) return;

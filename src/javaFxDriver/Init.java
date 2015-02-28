@@ -11,22 +11,9 @@ import javafx.scene.layout.BorderPane;
 public class Init extends Application {
 	
 	private long lastTime;
-	
 	private BorderPane mainBorderPane = new BorderPane();
 	private BorderPane activeGraphicsPane = new BorderPane();
 	private PopulationManager popMngr = new PopulationManager();
-	
-	/*
-	private void swapGraphicsPanes () {
-		if (this.popMngr.getActiveDriver().toString().equals("basic2D")) {
-			this.popMngr.setActiveDriver("basic3D");
-		}
-		else {
-			this.popMngr.setActiveDriver("basic2D");
-		}
-		this.activeGraphicsPane.setCenter(this.popMngr.getActiveDriver().getUiNode());
-	}
-	*/
 
 	@Override
 	public void start (Stage stage) {
@@ -34,20 +21,19 @@ public class Init extends Application {
 		Scene scene = new Scene(root, 1154, 680, Color.WHITE);
 		stage.setScene(scene);
 		stage.setTitle("Particle Swarm Optimization Visualization");
+		
 		//---BUILD POPULATION DRIVERS---//
+		/*
+		 * Right now the graphics pane needs a live populationManager
+		 * uiPane ... need to refactor
+		 */
 		int[] searchSpace = new int[]{900, 675, 255, 255, 255};
 		int[] initGoal = new int[]{255, 255, 255, 255, 255};
-		
-		
 		PopulationDriver basic2D = new Basic2dDriver(searchSpace, initGoal, -1, new int[100]);
 		this.popMngr.addDriver("basic2D", basic2D);
 		this.popMngr.setActiveDriver("basic2D");
-		/*
-		PopulationDriver basic3D = new Basic3dDriver(searchSpace, initGoal, -1);
-		this.popMngr.addDriver("basic3D", basic3D);
-		*/
-		//this.popMngr.setActiveDriver("basic3D");
-
+		
+		//---SET MAIN GRAPHICS PANE---//
 		this.activeGraphicsPane.setCenter(this.popMngr.getActiveDriver().getUiNode());
 		this.activeGraphicsPane.setStyle("" +
 			"-fx-background-color: #ffffff;" +
@@ -67,8 +53,7 @@ public class Init extends Application {
 			}
 		};
 		
-		//---BUILD MAIN UI---//
-		
+		//---FINISH BUILDING UI---//
 		//---CONTROLLER PANEL ON THE LEFT---//
 		MainControllerPane mpc = new MainControllerPane(this.popMngr, timer, this.activeGraphicsPane);
 		

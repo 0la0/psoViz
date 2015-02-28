@@ -8,7 +8,6 @@ import pso.Options;
 import pso.Particle;
 import pso.Population;
 import pso.Position;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
@@ -45,34 +44,24 @@ public class Basic3dDriver extends PopulationDriver {
 	private double mouseDeltaX;
 	private double mouseDeltaY;
 	
-	{this.paramList = new String[]{
-		"X", "Y", "Z", "Red", "Green", "Blue", "Alpha", "Beta", "Gamma"
-	};}
-	
-	//private int numDimensions;
 	
 	public Basic3dDriver(int[] searchSpaceDimensions, int[] initGoal, int numPopulations, int[] popSizes) {
 		super(searchSpaceDimensions, initGoal, numPopulations, popSizes);
-
-		//---swarm parameters---//
-		/*
-		this.options.c1 = 0.006f;
-		this.options.c2 = 0.001f;
-		this.options.speedLimit = 25;
-		*/
     	
 		//---swarm setup---//
+		this.paramList = new String[]{"X", "Y", "Z", "Red", "Green", "Blue", "Alpha", "Beta", "Gamma"};
 		this.numDimensions = 9; //TODO: Set dynamically
 		this.paramMult = new double[this.numDimensions];
 		Arrays.fill(this.paramMult, 1);
+		
 		Position size = new Position(new int[]{
 			this.size, this.size, this.size, 
 			this.size, this.size, this.size,
 			this.size, this.size, this.size
 		});
 		this.fitnessFunction = new FitnessDistance(new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0});
-		//int populationSize = 50;
 		
+		//---POPULATION SETUP---//
 		for (int i = 0; i < this.numPopulations; i++) {
 			Options options = new Options();
 			options.c1 = 0.006f;
@@ -84,7 +73,7 @@ public class Basic3dDriver extends PopulationDriver {
 			this.populations.add(p);
 		}
 		
-		
+		//---UI SETUP---//
 		root.getChildren().add(world);
 		this.buildCamera();
 		this.buildBoundries();
@@ -110,6 +99,7 @@ public class Basic3dDriver extends PopulationDriver {
 		cameraXform.ry.setAngle(320.0);
 	}
 
+	//---BUILDS CUBE SKELETON FOR VISUAL SPATIAL REFERENCE---//
 	private void buildBoundries() {
 		PhongMaterial blackMaterial = new PhongMaterial();
 		blackMaterial.setDiffuseColor(Color.BLACK);
@@ -124,7 +114,6 @@ public class Basic3dDriver extends PopulationDriver {
         	bounds.add(new Cube(lineWidth, size * 2, lineWidth, blackMaterial));
         for (int i = 0; i < 4; i++)
         	bounds.add(new Cube(lineWidth, lineWidth, size * 2, blackMaterial));
-        
         
         bounds.get(0).translate(0, halfSize, halfSize);
         bounds.get(1).translate(0, halfSize, -halfSize);
@@ -204,7 +193,6 @@ public class Basic3dDriver extends PopulationDriver {
 			this.goalCube.setRotate(rotX, rotY, rotZ);
 		}
 		
-		//double meanFitness = p.update();
 		int totParticleCnt = 0;
 		for (Population p : populations) {
 			p.update();
@@ -230,27 +218,6 @@ public class Basic3dDriver extends PopulationDriver {
 			totParticleCnt += p.getParticles().size();
 		}
 		
-		
-		//---set the cube position from the particle position---//
-		/*
-		for (int i = 0; i < this.p.getParticles().size(); i++) {
-			Particle particle = this.p.getParticles().get(i);
-			Cube cube = particles.get(i);
-			int[] position = particle.getPosition().get();
-			//---SET POSITION---//
-			cube.translate(position[0], position[1], position[2]);
-			//---SET COLOR---//
-			double cubeR = ((position[3] + this.size) / (this.size * 2.0));
-			double cubeG = ((position[4] + this.size) / (this.size * 2.0));
-			double cubeB = ((position[5] + this.size) / (this.size * 2.0));;
-			cube.setColor(cubeR, cubeG, cubeB);
-			
-			double rotX = (((position[6] + this.size) / (this.size * 2.0) * 360));
-			double rotY = (((position[7] + this.size) / (this.size * 2.0) * 360));
-			double rotZ = (((position[8] + this.size) / (this.size * 2.0) * 360));
-			cube.setRotate(rotX, rotY, rotZ);
-		}
-		*/
 	}
 	
 	@Override

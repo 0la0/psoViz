@@ -2,8 +2,6 @@ package javaFxDriver;
 
 import java.util.ArrayList;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.Node;
 import pso.IFitness;
 import pso.Options;
@@ -14,19 +12,14 @@ import pso.Population;
  */
 public abstract class PopulationDriver {
 	
-	//protected Options options = new Options();
-	//protected Population p; //change to collection of populations
 	protected IFitness fitnessFunction;
 	protected ArrayList<Options> opts = new ArrayList<Options>();
 	protected ArrayList<Population> populations = new ArrayList<Population>();
 	
-	protected int goalRadius = 20;
-	protected GraphicsContext g2d;
-	protected Color goalColor = Color.BLACK;
-	protected int numDimensions = 0;
-	protected double[] paramMult;
-	protected String[] paramList;
-	protected int numPopulations;
+	protected int numDimensions = 0; //Number of dimensions to represent
+	protected double[] paramMult;	 //individual parameter multipliers
+	protected String[] paramList;	 //parameter labels
+	protected int numPopulations;	 //number of populations
 	
 	public PopulationDriver (int[] searchSpaceDimensions, int[] initGoal, int numPopulations, int[] popSizes) {
 		this.numPopulations = numPopulations;
@@ -72,8 +65,6 @@ public abstract class PopulationDriver {
 		}
 		return this.paramList[index];
 	}
-	
-	public void addPopulation (int populationSize) {}
 	
 	public abstract Node getUiNode ();
 	

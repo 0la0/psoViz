@@ -1,8 +1,8 @@
 package javaFxDriver;
+
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
-import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 
 
@@ -13,7 +13,6 @@ public class Cube {
 	private Color color;
 	private Color difuseColor = null;
 	private Color specularColor = null;
-	private Affine affine = new Affine();
 	
 	private Rotate rx = new Rotate(0, Rotate.X_AXIS);
 	private Rotate ry = new Rotate(0, Rotate.Y_AXIS);
@@ -36,6 +35,7 @@ public class Cube {
 		this.box.getTransforms().addAll(rz, ry, rx);
 		this.setMaterial(material);
 	}
+	
 	
 	public Cube (double x, double y, double z, Color difuseColor, Color specularColor) {
 		this.box = new Box(x, y, z);

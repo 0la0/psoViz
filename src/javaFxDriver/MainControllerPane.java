@@ -4,14 +4,10 @@ import java.util.ArrayList;
 
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -19,6 +15,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.input.MouseEvent;
 
+/*
+ * MainControllerPane is the left hand side of the UI 
+ * that contains all the UI controllers
+ */
 public class MainControllerPane {
 	
 	private VBox mainPane = new VBox();
@@ -52,11 +52,10 @@ public class MainControllerPane {
 		RadioButton rb3D = new RadioButton("3D");
 		rb3D.setToggleGroup(radioButtons);
 		
-		/*
+		/*//---RADIO BUTTON CHANGE LISTENER---//
 		radioButtons.selectedToggleProperty().addListener(
 			(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) -> {
-		});
-		*/
+		});*/
 		
 		//---BUILD POPULATION DRIVERS == TEMP!!---//
 		int[] searchSpace = new int[]{900, 675, 255, 255, 255};
@@ -68,6 +67,9 @@ public class MainControllerPane {
 			 *	-Build accordion panel
 			 * 	-Init population
 			 * 	-Render initial frame
+			 * TODO:
+			 * 	refactor how search space and init goal
+			 *  are initially represented
 			 */
 			popMngr.clearPopulations();
 			int[] popSizes = new int[(int) numPopSlider.getValue()];
@@ -118,7 +120,9 @@ public class MainControllerPane {
 		numPopSlider.valueProperty().addListener( 
 			(ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
 				int val = (int) new_val.intValue();
+				//---UPDATE UI LABEL---//
 				numPopValue.setText(String.format("%d", val));
+				//---TEAR DOWN POP SIZE UI AND REBUILD---//
 				sizeParentPane.getChildren().clear();
 				sizePanes.clear();
 				for (int i = 0; i < val; i++) {
@@ -130,8 +134,6 @@ public class MainControllerPane {
 		this.basicOptPane.add(numPopLabel, 0, 2);
 		this.basicOptPane.add(numPopSlider, 1, 2);
 		this.basicOptPane.add(numPopValue, 2, 2);
-		
-		Label activePopLabel = new Label("Select Population");
 		
 		//---BUILD SCENE, START/STOP, NUM POPULATIONS---//
 		this.mainPane.getChildren().add(this.basicOptPane);

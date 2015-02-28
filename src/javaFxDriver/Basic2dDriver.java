@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import pso.FitnessDistance;
@@ -14,27 +15,22 @@ import pso.Position;
 
 public class Basic2dDriver extends PopulationDriver {
 
+	protected int goalRadius = 20;
+	protected GraphicsContext g2d;
+	protected Color goalColor = Color.BLACK;
 	private Canvas canvas = new Canvas(900, 675);
-	{this.paramList = new String[]{
-		"X", "Y", "R", "G", "B"
-	};}
 	
 	public Basic2dDriver(int[] searchSpaceDimensions, int[] initGoal, int numPopulations, int[] popSizes) {
 		super(searchSpaceDimensions, initGoal, numPopulations, popSizes);
 		
-		//---BUILD PSO---//
-		/*
-		this.options.c1 = 0.01f;
-		this.options.c2 = 0.001f;
-		this.options.speedLimit = 10.0f;
-		*/
-    	
-		//int populationSize = 1000;
+		this.paramList = new String[]{"X", "Y", "R", "G", "B"};
 		this.numDimensions = searchSpaceDimensions.length;
-		this.paramMult = new double[this.numDimensions];
+		this.paramMult = new double[this.numDimensions]; 
 		Arrays.fill(this.paramMult, 1);
+		
 		Position size = new Position(searchSpaceDimensions.clone());
 		this.fitnessFunction = new FitnessDistance(initGoal.clone());
+		
 		for (int i = 0; i < this.numPopulations; i++) {
 			Options options = new Options();
 			options.c1 = 0.01f;
@@ -47,7 +43,6 @@ public class Basic2dDriver extends PopulationDriver {
 		}
 		
 		this.setUpUi();
-		
 		this.g2d.setLineWidth(3);
 	}
 	

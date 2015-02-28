@@ -1,22 +1,21 @@
 package javaFxDriver;
 
-import java.util.ArrayList;
-
 import pso.Population;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+/*
+ * PopParamControl contains the UI controls for
+ * each population's dimension representation and controller
+ */
 public class PopParamControl {
 	
-	private ArrayList<Param> params = new ArrayList<Param>();
 	private GridPane mainPane = new GridPane();
-	private PopulationManager popMngr = new PopulationManager();
+	private PopulationManager popMngr;
 	
 	public PopParamControl (PopulationManager popMngr, int index) {
 		this.popMngr = popMngr;
@@ -42,8 +41,9 @@ public class PopParamControl {
 			p.addToPane(this.mainPane, i);
 			p.slider.valueProperty().addListener( 
 				(ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
-					pop.setDimWeight(p.index, (double) new_val.doubleValue());
-					p.value.setText(String.format("%.2f", (double) new_val.doubleValue()));
+					double val = (double) new_val.doubleValue();
+					pop.setDimWeight(p.index, val);
+					p.value.setText(String.format("%.2f", val));
 			});
 		}
 		return this.mainPane;

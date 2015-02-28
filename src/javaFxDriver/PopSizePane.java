@@ -5,9 +5,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
+/*
+ * PopSize Pane is a horizontal pane that contains
+ * a label and a population size
+ */
 public class PopSizePane {
 	
-	//private int size = 100;
 	private Label label = new Label();
 	private TextField textField = new TextField("100");
 	
