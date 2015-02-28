@@ -1,7 +1,7 @@
 Particle Swarm Optimization Visualization
 =================
 
-A Java desktop program for visualizing a basic implementation of the [Particle Swarm Optimization](http://en.wikipedia.org/wiki/Particle_swarm_optimization).
+A Java desktop program for visualizing a basic implementation of the [Particle Swarm Optimization](http://en.wikipedia.org/wiki/Particle_swarm_optimization) search algorithm.
 
 The basic algorithm was created from the pseudocode from [this tutorial](http://www.swarmintelligence.org/tutorials.php). 
 
