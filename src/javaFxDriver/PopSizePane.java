@@ -15,7 +15,12 @@ public class PopSizePane {
 	private TextField textField = new TextField("100");
 	
 	public PopSizePane (int index) {
-		label.setText("Population " + index + " size: ");
+		this.label.setText("Population " + index + " size: ");
+		this.textField.setMaxWidth(50);
+		
+		this.label.setStyle("" +
+			"-fx-margin-left: 10px;"
+		);
 	}
 	
 	public int getSize () {
@@ -29,7 +34,8 @@ public class PopSizePane {
 	public Pane getPane () {
 		HBox parentPane = new HBox(this.label, this.textField);
 		parentPane.setStyle("" +
-			"-fx-background-color: #ffffff;" +
+			"-fx-padding: 2px 0px 2px 20px;" +
+			"-fx-background-color: #cccccc;" +
 			"-fx-border-color: #333333;" + 
 			"-fx-border-width: 2px;" +
 			"-fx-border-radius: 4px;"

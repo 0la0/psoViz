@@ -36,7 +36,7 @@ public class MainControllerPane {
 		this.mainPane.setMinWidth(250);
 		
 		this.sizeParentPane.setStyle("" +
-			"-fx-background-color: #ffffff;" +
+			"-fx-background-color: #cccccc;" +
 			"-fx-border-color: #333333;" + 
 			"-fx-border-width: 2px;" +
 			"-fx-border-radius: 4px;"
@@ -113,6 +113,12 @@ public class MainControllerPane {
 		this.basicOptPane.add(rb2D, 1, 1);
 		this.basicOptPane.add(rb3D, 2, 1);
 		
+		this.basicOptPane.setStyle("" +
+			"-fx-background-color: #ffffff;" +
+			"-fx-border-color: #333333;" + 
+			"-fx-border-width: 2px;" +
+			"-fx-border-radius: 4px;"
+		);
 		
 		Label numPopLabel = new Label("# Populations: ");
 		Label numPopValue = new Label("1");

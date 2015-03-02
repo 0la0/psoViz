@@ -25,6 +25,13 @@ public class AccordionContainer {
 	public AccordionContainer (PopulationManager popMngr) {
 		this.popMngr = popMngr;
 		this.accContainer.getChildren().add(parentPane);
+		
+		this.accContainer.setStyle("" +
+			"-fx-background-color: #ffffff;" +
+			"-fx-border-color: #333333;" + 
+			"-fx-border-width: 2px;" +
+			"-fx-border-radius: 4px;"
+		);
 	}
 	
 	//---REBUILD ACCORDION ON "BUILD SCENE" BUTTON CLICK---//
