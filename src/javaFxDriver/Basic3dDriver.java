@@ -47,7 +47,7 @@ public class Basic3dDriver extends PopulationDriver {
 	
 	public Basic3dDriver(int[] searchSpaceDimensions, int[] initGoal, int numPopulations, int[] popSizes) {
 		super(searchSpaceDimensions, initGoal, numPopulations, popSizes);
-    	
+	
 		//---swarm setup---//
 		this.paramList = new String[]{"X", "Y", "Z", "Red", "Green", "Blue", "Alpha", "Beta", "Gamma"};
 		this.numDimensions = 9; //TODO: Set dynamically
@@ -78,7 +78,7 @@ public class Basic3dDriver extends PopulationDriver {
 		this.buildCamera();
 		this.buildBoundries();
 		this.buildParticles();
-        
+
 		this.scene = new SubScene(root, 900, 675, true, SceneAntialiasing.BALANCED);
 		
 		this.scene.setFill(Color.color(0.85, 0.85, 1.0));
@@ -103,38 +103,38 @@ public class Basic3dDriver extends PopulationDriver {
 	private void buildBoundries() {
 		PhongMaterial blackMaterial = new PhongMaterial();
 		blackMaterial.setDiffuseColor(Color.BLACK);
-		blackMaterial.setSpecularColor(Color.BLACK);        
-        
+		blackMaterial.setSpecularColor(Color.BLACK);
+
 		double lineWidth = 1.0;
-        ArrayList<Cube> bounds = new ArrayList<Cube>();
-        
-        for (int i = 0; i < 4; i++)
-        	bounds.add(new Cube(size * 2, lineWidth, lineWidth, blackMaterial));
-        for (int i = 0; i < 4; i++)
-        	bounds.add(new Cube(lineWidth, size * 2, lineWidth, blackMaterial));
-        for (int i = 0; i < 4; i++)
-        	bounds.add(new Cube(lineWidth, lineWidth, size * 2, blackMaterial));
-        
-        bounds.get(0).translate(0, halfSize, halfSize);
-        bounds.get(1).translate(0, halfSize, -halfSize);
-        bounds.get(2).translate(0, -halfSize, halfSize);
-        bounds.get(3).translate(0, -halfSize, -halfSize);
-        
-        bounds.get(4).translate(halfSize, 0, halfSize);
-        bounds.get(5).translate(halfSize, 0, -halfSize);
-        bounds.get(6).translate(-halfSize, 0, halfSize);
-        bounds.get(7).translate(-halfSize, 0, -halfSize);
-        
-        bounds.get(8).translate(halfSize, halfSize, 0);
-        bounds.get(9).translate(halfSize, -halfSize, 0);
-        bounds.get(10).translate(-halfSize, halfSize, 0);
-        bounds.get(11).translate(-halfSize, -halfSize, 0);
-        
-        for (Cube bound : bounds) {
-        	boundryGroup.getChildren().add(bound.getBox());
-        }
-        boundryGroup.getChildren().add(this.goalCube.getBox());
-        world.getChildren().addAll(boundryGroup);
+		ArrayList<Cube> bounds = new ArrayList<Cube>();
+
+		for (int i = 0; i < 4; i++)
+			bounds.add(new Cube(size * 2, lineWidth, lineWidth, blackMaterial));
+		for (int i = 0; i < 4; i++)
+			bounds.add(new Cube(lineWidth, size * 2, lineWidth, blackMaterial));
+		for (int i = 0; i < 4; i++)
+			bounds.add(new Cube(lineWidth, lineWidth, size * 2, blackMaterial));
+
+		bounds.get(0).translate(0, halfSize, halfSize);
+		bounds.get(1).translate(0, halfSize, -halfSize);
+		bounds.get(2).translate(0, -halfSize, halfSize);
+		bounds.get(3).translate(0, -halfSize, -halfSize);
+
+		bounds.get(4).translate(halfSize, 0, halfSize);
+		bounds.get(5).translate(halfSize, 0, -halfSize);
+		bounds.get(6).translate(-halfSize, 0, halfSize);
+		bounds.get(7).translate(-halfSize, 0, -halfSize);
+
+		bounds.get(8).translate(halfSize, halfSize, 0);
+		bounds.get(9).translate(halfSize, -halfSize, 0);
+		bounds.get(10).translate(-halfSize, halfSize, 0);
+		bounds.get(11).translate(-halfSize, -halfSize, 0);
+
+		for (Cube bound : bounds) {
+			boundryGroup.getChildren().add(bound.getBox());
+		}
+		boundryGroup.getChildren().add(this.goalCube.getBox());
+		world.getChildren().addAll(boundryGroup);
 	}
 
 	private void buildParticles () {
@@ -154,17 +154,17 @@ public class Basic3dDriver extends PopulationDriver {
 				particles.add(box);
 			}
 		}
-    	
+	
 		for (Cube particle : particles) {
 			this.particleGroup.getChildren().addAll(particle.getBox());
 		}
 		this.world.getChildren().addAll(this.particleGroup);
 	}
-    
+
 	private int getPosNeg () {
 		return (Math.random() < 0.5) ? 1 : -1;
 	}
-    
+
 	@Override
 	public void update (float elapsedTime) {
 		//---CHANGE GOAL---//

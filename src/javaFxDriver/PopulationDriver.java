@@ -34,6 +34,7 @@ public abstract class PopulationDriver {
 	public Options getOptions (int index) {
 		if (index < 0 || index >= this.opts.size()) {
 			System.out.println("PopulationDriver.getOptions indexOutOfBounds");
+			return null;
 		}
 		return this.opts.get(index);
 	}
@@ -54,6 +55,7 @@ public abstract class PopulationDriver {
 	public Population getPopulation (int index) {
 		if (index < 0 || index >= this.populations.size()) {
 			System.out.println("PopulationDriver.getPopulation indexOutOfBounds");
+			return null;
 		}
 		return this.populations.get(index);
 	}

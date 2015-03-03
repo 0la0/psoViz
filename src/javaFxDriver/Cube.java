@@ -16,7 +16,7 @@ public class Cube {
 	
 	private Rotate rx = new Rotate(0, Rotate.X_AXIS);
 	private Rotate ry = new Rotate(0, Rotate.Y_AXIS);
-    private Rotate rz = new Rotate(0, Rotate.Z_AXIS);
+	private Rotate rz = new Rotate(0, Rotate.Z_AXIS);
 	
 	public Cube () {
 		this.box = new Box(0, 0, 0);
