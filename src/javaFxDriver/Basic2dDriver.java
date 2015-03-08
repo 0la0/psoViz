@@ -18,7 +18,7 @@ public class Basic2dDriver extends PopulationDriver {
 	protected int goalRadius = 20;
 	protected GraphicsContext g2d;
 	protected Color goalColor = Color.BLACK;
-	private Canvas canvas = new Canvas(900, 675);
+	private Canvas canvas = new Canvas(width, height);
 	
 	public Basic2dDriver(int[] searchSpaceDimensions, int[] initGoal, int numPopulations, int[] popSizes) {
 		super(searchSpaceDimensions, initGoal, numPopulations, popSizes);
@@ -48,15 +48,17 @@ public class Basic2dDriver extends PopulationDriver {
 	
 	@Override
 	public void update (float elapsedTime) {
-		g2d.clearRect(0, 0, g2d.getCanvas().getWidth(), g2d.getCanvas().getHeight());
+		//g2d.clearRect(0, 0, g2d.getCanvas().getWidth(), g2d.getCanvas().getHeight());
 		for (Population p : this.populations) {
 			p.update();
 			//---RENDER GOAL STATE---//
+			/*
 			g2d.fillOval(
 				this.fitnessFunction.getGoal()[0] - this.goalRadius, 
 				this.fitnessFunction.getGoal()[1] - this.goalRadius, 
 				this.goalRadius * 2, this.goalRadius * 2
 			);
+			*/
 			//---RENDER PARTICLES---//
 			for (Particle particle : p.getParticles()) {
 				g2d.setStroke(Color.color(
@@ -104,6 +106,17 @@ public class Basic2dDriver extends PopulationDriver {
 			);
 			g2d.setFill(goalColor);
 		});
+	}
+	
+	public void setFullscreen (boolean isFullscreen, double w, double h) {
+		if (isFullscreen) {
+			this.canvas.setWidth(w);
+			this.canvas.setHeight(h);
+		}
+		else {
+			this.canvas.setWidth(width);
+			this.canvas.setHeight(height);
+		}
 	}
 	
 	@Override

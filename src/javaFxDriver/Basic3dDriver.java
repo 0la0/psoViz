@@ -79,7 +79,7 @@ public class Basic3dDriver extends PopulationDriver {
 		this.buildBoundries();
 		this.buildParticles();
 
-		this.scene = new SubScene(root, 900, 675, true, SceneAntialiasing.BALANCED);
+		this.scene = new SubScene(root, width, height, true, SceneAntialiasing.BALANCED);
 		
 		this.scene.setFill(Color.color(0.85, 0.85, 1.0));
 		this.scene.setCamera(camera);
@@ -223,6 +223,17 @@ public class Basic3dDriver extends PopulationDriver {
 	@Override
 	public Node getUiNode () {
 		return this.scene;
+	}
+	
+	public void setFullscreen (boolean isFullscreen, double w, double h) {
+		if (isFullscreen) {
+			this.scene.setWidth(w);
+			this.scene.setHeight(h);
+		}
+		else {
+			this.scene.setWidth(width);
+			this.scene.setHeight(height);
+		}
 	}
 	
 	public String toString () {

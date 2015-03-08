@@ -30,8 +30,13 @@ public class MainControllerPane {
 	private PopulationDriver basic3D;
 	private ArrayList<PopSizePane> sizePanes = new ArrayList<PopSizePane>();
 	private VBox sizeParentPane = new VBox();
+	private PopulationManager popMngr;
+	private BorderPane activeGraphicsPane;
 	
 	public MainControllerPane (PopulationManager popMngr, AnimationTimer timer, BorderPane activeGraphicsPane) {
+		this.popMngr = popMngr;
+		this.activeGraphicsPane = activeGraphicsPane;
+		
 		this.accordionPane = new AccordionContainer(popMngr);
 		this.mainPane.setMinWidth(250);
 		
@@ -95,7 +100,7 @@ public class MainControllerPane {
 		startStop.setOnMouseClicked((MouseEvent e) -> {
 			if (!this.timerIsRunning) {
 				startStop.setText("STOP");
-				activeGraphicsPane.setCenter(popMngr.getActiveDriver().getUiNode());
+				rebuildPane();
 				timer.start();
 				this.timerIsRunning = true;
 			}
@@ -147,6 +152,10 @@ public class MainControllerPane {
 		this.mainPane.getChildren().add(this.sizeParentPane);
 		//---INDIVIDUAL POPULATION PARAMETER CONTROLS---//
 		this.mainPane.getChildren().add(this.accordionPane.getPane());
+	}
+	
+	public void rebuildPane () {
+		activeGraphicsPane.setCenter(popMngr.getActiveDriver().getUiNode());
 	}
 	
 	public Pane getPane () {

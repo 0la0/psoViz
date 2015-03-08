@@ -20,6 +20,8 @@ public abstract class PopulationDriver {
 	protected double[] paramMult;	 //individual parameter multipliers
 	protected String[] paramList;	 //parameter labels
 	protected int numPopulations;	 //number of populations
+	protected int width = 900;
+	protected int height = 675;
 	
 	public PopulationDriver (int[] searchSpaceDimensions, int[] initGoal, int numPopulations, int[] popSizes) {
 		this.numPopulations = numPopulations;
@@ -67,6 +69,9 @@ public abstract class PopulationDriver {
 		}
 		return this.paramList[index];
 	}
+	
+	public abstract void setFullscreen (boolean isFullscreen, double w, double h);
+	
 	
 	public abstract Node getUiNode ();
 	

@@ -6,7 +6,12 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
 
 public class Init extends Application {
 	
@@ -14,7 +19,12 @@ public class Init extends Application {
 	private BorderPane mainBorderPane = new BorderPane();
 	private BorderPane activeGraphicsPane = new BorderPane();
 	private PopulationManager popMngr = new PopulationManager();
+	private boolean isFullscreen = false;
 
+	private void buildMainPane () {
+		
+	}
+	
 	@Override
 	public void start (Stage stage) {
 		Group root = new Group();
@@ -60,6 +70,26 @@ public class Init extends Application {
 		mainBorderPane.setCenter(this.activeGraphicsPane);
 		scene.setRoot(mainBorderPane);
 		stage.show();
+		
+		//---KEY LISTENERS---//
+		scene.setOnKeyPressed((KeyEvent e) -> {
+			//---FULLSCREEN: F / ESC---//
+			if (e.getCode() == KeyCode.F) {
+				isFullscreen = !isFullscreen;
+				stage.setFullScreen(isFullscreen);
+				popMngr.setFullscreen(isFullscreen, stage.getWidth(), stage.getHeight());
+				VBox vb = new VBox();
+				if (isFullscreen) {
+					vb.getChildren().add(popMngr.getActiveDriver().getUiNode());
+				}
+				else {
+					mpc.rebuildPane();
+					vb.getChildren().add(mainBorderPane);
+				}
+				scene.setRoot(vb);
+			}	
+		});
+		
 	}
 
 	public static void main (String[] args) {

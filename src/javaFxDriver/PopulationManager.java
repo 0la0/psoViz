@@ -48,5 +48,9 @@ public class PopulationManager {
 	public void clearPopulations () {
 		this.drivers.clear();
 	}
+	
+	public void setFullscreen (boolean isFullscreen, double w, double h) {
+		this.activeDriver.setFullscreen(isFullscreen, w, h);
+	}
 
 }
