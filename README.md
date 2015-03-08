@@ -44,3 +44,15 @@ java -cp ./bin driver2d/Init2D
 The package "driver3d" is a 3D visualization that uses openGL via the [lwjgl](http://www.lwjgl.org/).
 
 I am currently exploring JavaFX to visualize both 2D and 3D versions, and will likely drop the previous two drivers.
+
+To view and interact with the JavaFX version:
+
+Compile: 
+```Shell
+javac -d bin src/pso/* src/javaFxDriver/*
+```
+
+Run:
+```Shell
+java -cp ./bin javaFxDriver.Init
+```
