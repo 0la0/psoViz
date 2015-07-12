@@ -7,7 +7,7 @@ public class Particle {
 	private Position lastPosition2;
 	private Position pBest;
 	private Velocity velocity;
-	private float pBestVal = 999999.9f;
+	private double pBestVal = 999999.9f;
 	private IFitness fitnessFunction;
 	private Options options;
 	private int numDimensions;
@@ -71,7 +71,7 @@ public class Particle {
 		this.position.set(newPos);
 	}
 	
-	public float getLocalBest () {
+	public double getLocalBest () {
 		return this.pBestVal;
 	}
 	

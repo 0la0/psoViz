@@ -8,7 +8,7 @@ public class Population {
 
 	private ArrayList<Particle> particles = new ArrayList<Particle>();
 	private int velMultiplier = 5;
-	private float gBestVal = 9999.9f;
+	private double gBestVal = 9999.9f;
 	private Position gBest;
 	private IFitness fitnessFunction;
 	private int size;
