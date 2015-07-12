@@ -53,17 +53,30 @@ public class Particle {
 				.toArray();
 		this.velocity.setVector(updatedVelocity);
 		
-		this.applySpeedLimit();
+		this.validateSpeed();
 		this.updateVector();
 	}
 	
-	private void applySpeedLimit () {
-		for (int i = 0; i < this.numDimensions; i++) {
-			if (this.velocity.getVector()[i] > this.options.speedLimit)
-				this.velocity.getVector()[i] = this.options.speedLimit;
-			else if (this.velocity.getVector()[i] < -this.options.speedLimit)
-				this.velocity.getVector()[i] = -this.options.speedLimit;
+	private void validateSpeed () {
+		double elementsSquared = Arrays.stream( velocity.getVector() )
+				.map(scalarElement -> Math.pow(scalarElement, 2))
+				.sum();
+		double vectorLength = Math.sqrt(elementsSquared);
+		
+		if (vectorLength > options.speedLimit) {
+			this.applySpeedLimit(vectorLength);
 		}
+	}
+	
+	private void applySpeedLimit (double vectorLength) {
+		//given a vector v with desired length L
+		//u = (L / ||v||) v
+		
+		double desiredSpeedRatio = this.options.speedLimit / vectorLength;
+		double[] appliedSpeedLimit = Arrays.stream( this.velocity.getVector() )
+				.map(scalarElement -> desiredSpeedRatio * scalarElement)
+				.toArray();
+		this.velocity.setVector(appliedSpeedLimit);
 	}
 	
 	private void updateVector () {
