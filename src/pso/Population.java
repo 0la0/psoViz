@@ -25,7 +25,7 @@ public class Population {
 		this.fitnessFunction = fitnessFunction;
 		for (int i = 0; i < numParticles; i++) {
 			particles.add(new Particle(
-				this.getRandomPosition(),
+				new Position( getRandomVector() ),
 				this.getRandomVelocity(false),
 				fitnessFunction,
 				options
@@ -34,22 +34,26 @@ public class Population {
 	}
 	
 	public double update () {
-		double fitnessSum = 0;
-		for (Particle p : particles) {
-			fitnessSum += p.evaluateFitness();
-		}
+		
+		//evaluate fitness and sum all particle fitness values
+		double fitnessSum = particles.stream()
+				.mapToDouble(particle -> particle.evaluateFitness())
+				.sum();
+		
+		
 		//search for global best
-		for (Particle p : particles) {
-			if (p.getLocalBest() < this.gBestVal) {
-				//new global best
-				this.gBestVal = p.getLocalBest();
-				gBest = p.getLocalBestPosition().copy();
+		particles.forEach(particle -> {
+			if (particle.getLocalBest() < gBestVal) {
+				this.gBestVal = particle.getLocalBest();
+				gBest = particle.getLocalBestPosition().copy();
 			}
-		}
+		});
+		
 		//update positions
-		for (Particle p : particles) {
-			p.update(gBest, this.dimWeight);
-		}
+		particles.forEach(particle -> {
+			particle.update(gBest, dimWeight);
+		});
+		
 		//return mean fitness
 		return fitnessSum / (this.size * 1.0);
 	}
@@ -69,31 +73,25 @@ public class Population {
 	public void resetGoal (int[] goal) {
 		this.fitnessFunction.setGoal(goal);
 		this.gBestVal = 9999.9f;
-		for (Particle p : this.particles) {
-			p.reset();
-		}
+		this.particles.forEach(particle -> particle.reset());
 	}
 	
 	public void resetPosAndVel () {
-		int[] newGoal = new int[this.numDimensions];
-		for (int i = 0; i < this.numDimensions; i++) {
-			newGoal[i] = (int) (this.searchSpaceSize.get()[i] * Math.random());
-		}
-		this.fitnessFunction.setGoal(newGoal);
+		this.fitnessFunction.setGoal(getRandomVector());
 		this.gBestVal = 9999.9f;
-		for (Particle p : this.particles) {
-			p.reset();
-			p.setPosition(this.getRandomPosition());
-			p.setVelocity(this.getRandomVelocity(false));
-		}
+		this.particles.forEach(particle -> {
+			particle.reset();
+			particle.setPosition( new Position( getRandomVector() ) );
+			particle.setVelocity(this.getRandomVelocity(false));
+		});
 	}
 	
-	private Position getRandomPosition () {
-		int[] randPos = new int[this.numDimensions]; 
+	private int[] getRandomVector () {
+		int[] randVector = new int[this.numDimensions]; 
 		for (int i = 0; i < this.numDimensions; i++) {
-			randPos[i] = (int) Math.floor(this.searchSpaceSize.get()[i] * Math.random());
+			randVector[i] = (int) Math.floor(this.searchSpaceSize.getElement(i) * Math.random());
 		}
-		return new Position(randPos);
+		return randVector;
 	}
 	
 	private Velocity getRandomVelocity (boolean isScatter) {
@@ -108,9 +106,9 @@ public class Population {
 	
 	public void scatter () {
 		this.gBestVal = 9999.9f;
-		for (Particle p : this.particles) {
-			p.scatter(this.getRandomVelocity(true));
-		}
+		this.particles.forEach(particle -> {
+			particle.scatter(getRandomVelocity(true));
+		});
 	}
 	
 	public Position getGlobalBest () {

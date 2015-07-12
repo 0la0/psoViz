@@ -42,10 +42,10 @@ public class Particle {
 		//double[] vel = new double[this.numDimensions];
 		for (int i = 0; i < this.numDimensions; i++) {
 
-			this.velocity.get()[i] += 
+			this.velocity.getVector()[i] += 
 					(this.options.c1 * Math.random() * (this.pBest.get()[i] - this.position.get()[i])) + 
 					(this.options.c2 * Math.random() * (gBest.get()[i] - this.position.get()[i]));
-			this.velocity.get()[i] *= dimWeight[i];
+			this.velocity.getVector()[i] *= dimWeight[i];
 		}
 		this.applySpeedLimit();
 		this.updateVector();
@@ -53,10 +53,10 @@ public class Particle {
 	
 	private void applySpeedLimit () {
 		for (int i = 0; i < this.numDimensions; i++) {
-			if (this.velocity.get()[i] > this.options.speedLimit)
-				this.velocity.get()[i] = this.options.speedLimit;
-			else if (this.velocity.get()[i] < -this.options.speedLimit)
-				this.velocity.get()[i] = -this.options.speedLimit;
+			if (this.velocity.getVector()[i] > this.options.speedLimit)
+				this.velocity.getVector()[i] = this.options.speedLimit;
+			else if (this.velocity.getVector()[i] < -this.options.speedLimit)
+				this.velocity.getVector()[i] = -this.options.speedLimit;
 		}
 	}
 	
@@ -66,7 +66,7 @@ public class Particle {
 		
 		int[] newPos = new int[this.numDimensions];
 		for (int i = 0; i < this.numDimensions; i++) {
-			newPos[i] = (int) Math.round(this.position.get()[i] + this.velocity.get()[i]);
+			newPos[i] = (int) Math.round(this.position.get()[i] + this.velocity.getVector()[i]);
 		}
 		this.position.set(newPos);
 	}
