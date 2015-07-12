@@ -62,17 +62,17 @@ public class Basic2dDriver extends PopulationDriver {
 			//---RENDER PARTICLES---//
 			for (Particle particle : p.getParticles()) {
 				g2d.setStroke(Color.color(
-					this.getColor(particle.getPosition().get()[2], 255), 
-					this.getColor(particle.getPosition().get()[3], 255),
-					this.getColor(particle.getPosition().get()[4], 255)
+					this.getColor(particle.getPosition().getElement(2), 255), 
+					this.getColor(particle.getPosition().getElement(3), 255),
+					this.getColor(particle.getPosition().getElement(4), 255)
 				));
 				g2d.strokeLine(
-					particle.getPosition().get()[0], particle.getPosition().get()[1],
-					particle.getLastPosition1().get()[0], particle.getLastPosition1().get()[1]
+					particle.getPosition().getElement(0), particle.getPosition().getElement(1),
+					particle.getLastPosition1().getElement(0), particle.getLastPosition1().getElement(1)
 				);
 				g2d.strokeLine(
-					particle.getLastPosition1().get()[0], particle.getLastPosition1().get()[1],
-					particle.getLastPosition2().get()[0], particle.getLastPosition2().get()[1]
+					particle.getLastPosition1().getElement(0), particle.getLastPosition1().getElement(1),
+					particle.getLastPosition2().getElement(0), particle.getLastPosition2().getElement(1)
 				);
 			}	
 		}

@@ -85,9 +85,9 @@ public class Particle {
 		
 		int[] newPos = new int[this.numDimensions];
 		for (int i = 0; i < this.numDimensions; i++) {
-			newPos[i] = (int) Math.round(this.position.get()[i] + this.velocity.getVector()[i]);
+			newPos[i] = (int) Math.round(this.position.getElement(i) + this.velocity.getElement(i));
 		}
-		this.position.set(newPos);
+		this.position.setVector(newPos);
 	}
 	
 	public double getLocalBest () {

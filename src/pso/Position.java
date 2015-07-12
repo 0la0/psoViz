@@ -7,14 +7,14 @@ public class Position {
 	
 	public Position (int[] pos) {
 		this.numDimensions = pos.length;
-		this.set(pos.clone());
+		this.setVector(pos.clone());
 	}
 	
-	public void set (int[] pos) {
+	public void setVector (int[] pos) {
 		this.position = pos;
 	}
 	
-	public int[] get () {
+	public int[] getVector () {
 		return this.position;
 	}
 	

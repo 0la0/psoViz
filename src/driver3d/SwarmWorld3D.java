@@ -46,13 +46,13 @@ public class SwarmWorld3D {
 		for (Particle particle : p.getParticles()) {
 			cubes.add(new Cube(
 				new Vector3f(
-					(float) particle.getPosition().get()[0],
-					(float) particle.getPosition().get()[1],
-					(float) particle.getPosition().get()[2]),
+					(float) particle.getPosition().getVector()[0],
+					(float) particle.getPosition().getVector()[1],
+					(float) particle.getPosition().getVector()[2]),
 					10.0,
-					particle.getPosition().get()[3],
-					particle.getPosition().get()[4],
-					particle.getPosition().get()[5]
+					particle.getPosition().getVector()[3],
+					particle.getPosition().getVector()[4],
+					particle.getPosition().getVector()[5]
 			));
 		}
 
@@ -97,7 +97,7 @@ public class SwarmWorld3D {
 		for (int i = 0; i < this.p.getParticles().size(); i++) {
 			Particle particle = this.p.getParticles().get(i);
 			Cube cube = cubes.get(i);
-			int[] position = particle.getPosition().get();
+			int[] position = particle.getPosition().getVector();
 			//---SET POSITION---//
 			cube.setPosition(
 				(float) position[0], 

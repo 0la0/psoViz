@@ -141,15 +141,15 @@ public class Basic3dDriver extends PopulationDriver {
 		for (Population p : populations) {
 			for (Particle particle : p.getParticles()) {
 				Color color = Color.color(
-					particle.getPosition().get()[3] / (this.size * 1.0),
-					particle.getPosition().get()[4] / (this.size * 1.0),
-					particle.getPosition().get()[5] / (this.size * 1.0)
+					particle.getPosition().getVector()[3] / (this.size * 1.0),
+					particle.getPosition().getVector()[4] / (this.size * 1.0),
+					particle.getPosition().getVector()[5] / (this.size * 1.0)
 				);
 				Cube box = new Cube(this.particleSize, this.particleSize, this.particleSize, color, color);
 				box.translate(
-					particle.getPosition().get()[0],
-					particle.getPosition().get()[1],
-					particle.getPosition().get()[2]
+					particle.getPosition().getVector()[0],
+					particle.getPosition().getVector()[1],
+					particle.getPosition().getVector()[2]
 				);
 				particles.add(box);
 			}
@@ -200,7 +200,7 @@ public class Basic3dDriver extends PopulationDriver {
 			for (int i = totParticleCnt; i < totParticleCnt + p.getParticles().size(); i++) {
 				Particle particle = p.getParticles().get(i - totParticleCnt);
 				Cube cube = particles.get(i);
-				int[] position = particle.getPosition().get();
+				int[] position = particle.getPosition().getVector();
 				//---SET POSITION---//
 				cube.translate(position[0], position[1], position[2]);
 				//---SET COLOR---//

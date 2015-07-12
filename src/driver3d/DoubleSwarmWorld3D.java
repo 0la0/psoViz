@@ -48,26 +48,26 @@ public class DoubleSwarmWorld3D {
 		for (Particle particle : p1.getParticles()) {
 			cubes.add(new Cube(
 				new Vector3f(
-					(float) particle.getPosition().get()[0],
-					(float) particle.getPosition().get()[1],
-					(float) particle.getPosition().get()[2]),
+					(float) particle.getPosition().getVector()[0],
+					(float) particle.getPosition().getVector()[1],
+					(float) particle.getPosition().getVector()[2]),
 					10.0,
-					particle.getPosition().get()[3],
-					particle.getPosition().get()[4],
-					particle.getPosition().get()[5]
+					particle.getPosition().getVector()[3],
+					particle.getPosition().getVector()[4],
+					particle.getPosition().getVector()[5]
 			));
 		}
 		//initialize cubes
 		for (Particle particle : p2.getParticles()) {
 			cubes.add(new Cube(
 				new Vector3f(
-					(float) particle.getPosition().get()[0],
-					(float) particle.getPosition().get()[1],
-					(float) particle.getPosition().get()[2]),
+					(float) particle.getPosition().getVector()[0],
+					(float) particle.getPosition().getVector()[1],
+					(float) particle.getPosition().getVector()[2]),
 					10.0,
-					particle.getPosition().get()[3],
-					particle.getPosition().get()[4],
-					particle.getPosition().get()[5]
+					particle.getPosition().getVector()[3],
+					particle.getPosition().getVector()[4],
+					particle.getPosition().getVector()[5]
 			));
 		}
 
@@ -118,7 +118,7 @@ public class DoubleSwarmWorld3D {
 		for (int i = 0; i < this.p1.getParticles().size(); i++) {
 			Particle particle = this.p1.getParticles().get(i);
 			Cube cube = cubes.get(i);
-			int[] position = particle.getPosition().get();
+			int[] position = particle.getPosition().getVector();
 			//---SET POSITION---//
 			cube.setPosition(
 				(float) position[0], 
@@ -136,7 +136,7 @@ public class DoubleSwarmWorld3D {
 		for (int i = p1Size; i < p1Size + p2Size; i++) {
 			Particle particle = this.p2.getParticles().get(i - p1Size);
 			Cube cube = cubes.get(i);
-			int[] position = particle.getPosition().get();
+			int[] position = particle.getPosition().getVector();
 			//---SET POSITION---//
 			cube.setPosition(
 				(float) position[0], 

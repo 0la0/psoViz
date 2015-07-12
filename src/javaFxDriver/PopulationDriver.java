@@ -27,10 +27,10 @@ public abstract class PopulationDriver {
 		this.numPopulations = numPopulations;
 	}
 	
-	protected double getColor (float val, int size) {
-		if (val < 0) return 0;
-		if (val > size) return 1;
-		return val / (size * 1.0);
+	protected double getColor (double d, int size) {
+		if (d < 0) return 0;
+		if (d > size) return 1;
+		return d / (size * 1.0);
 	}
 	
 	public PsoConfigOptions getOptions (int index) {

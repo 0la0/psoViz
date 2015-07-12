@@ -76,12 +76,12 @@ public class Driver2d extends JPanel implements MouseListener{
 		g2d.setStroke(new BasicStroke(2));
 		for (Particle particle : p.getParticles()) {
 			g.drawLine(
-					particle.getPosition().get()[0], particle.getPosition().get()[1],
-					particle.getLastPosition1().get()[0], particle.getLastPosition1().get()[1]
+					particle.getPosition().getVector()[0], particle.getPosition().getVector()[1],
+					particle.getLastPosition1().getVector()[0], particle.getLastPosition1().getVector()[1]
 			);
 			g.drawLine(
-					particle.getLastPosition1().get()[0], particle.getLastPosition1().get()[1],
-					particle.getLastPosition2().get()[0], particle.getLastPosition2().get()[1]
+					particle.getLastPosition1().getVector()[0], particle.getLastPosition1().getVector()[1],
+					particle.getLastPosition2().getVector()[0], particle.getLastPosition2().getVector()[1]
 			);
 		}
 	}

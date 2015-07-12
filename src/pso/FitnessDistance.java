@@ -18,7 +18,7 @@ public class FitnessDistance implements IFitness{
 	public float calcFitness(Particle p) {
 		float sum = 0f;
 		for (int i = 0; i < this.numDims; i++) {
-			sum += (float) (Math.pow(p.getPosition().get()[i] - this.goal[i], 2));
+			sum += (float) (Math.pow(p.getPosition().getVector()[i] - this.goal[i], 2));
 		}
 		return (float) Math.sqrt(sum);
 	}
