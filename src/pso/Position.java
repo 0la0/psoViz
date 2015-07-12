@@ -7,7 +7,7 @@ public class Position {
 	
 	public Position (int[] pos) {
 		this.numDimensions = pos.length;
-		this.set(pos);
+		this.set(pos.clone());
 	}
 	
 	public void set (int[] pos) {

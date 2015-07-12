@@ -7,7 +7,7 @@ public class Velocity {
 	
 	public Velocity (double[] velocity) {
 		this.numDimensions = velocity.length;
-		this.setVector(velocity);
+		this.setVector(velocity.clone());
 	}
 	
 	public void setVector (double[] velocity) {
