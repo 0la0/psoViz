@@ -42,13 +42,16 @@ public class Particle {
 		}
 		//v[] = v[] + c1 * rand() * (pbest[] - present[]) + c2 * rand() * (gbest[] - present[])
 		//double[] vel = new double[this.numDimensions];
-		for (int i = 0; i < this.numDimensions; i++) {
-
-			this.velocity.getVector()[i] += 
-					(this.options.c1 * Math.random() * (this.pBest.get()[i] - this.position.get()[i])) + 
-					(this.options.c2 * Math.random() * (gBest.get()[i] - this.position.get()[i]));
-			this.velocity.getVector()[i] *= dimensionWeight[i];
-		}
+		AtomicInteger indexCnt = new AtomicInteger(0);
+		double[] updatedVelocity = Arrays.stream( velocity.getVector() )
+				.map(scalarElement -> {
+					int index = indexCnt.getAndIncrement();
+					double personalBest = options.c1 * 1.0 * (pBest.getElement(index) - position.getElement(index));
+					double globalBest = options.c2 * 1.0 * (gBest.getElement(index) - position.getElement(index));
+					return (scalarElement + personalBest + globalBest) * dimensionWeight[index];
+				})
+				.toArray();
+		this.velocity.setVector(updatedVelocity);
 		
 		this.applySpeedLimit();
 		this.updateVector();
