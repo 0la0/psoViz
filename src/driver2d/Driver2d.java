@@ -13,7 +13,7 @@ import javax.swing.Timer;
 
 import pso.FitnessDistance;
 import pso.IFitness;
-import pso.Options;
+import pso.PsoConfigOptions;
 import pso.Particle;
 import pso.Population;
 import pso.Position;
@@ -28,11 +28,11 @@ public class Driver2d extends JPanel implements MouseListener{
 	private IFitness fitnessFunction = new FitnessDistance(new int[]{255, 255});
 	private int iterationCnt = 0;
 	//private int convergenceThresh = 50;
-	private Options options;
+	private PsoConfigOptions options;
 	private int goalRadius = 10;
 	private int numDimensions;
 	
-	public Driver2d (int width, int height, int populationSize, Options options) {
+	public Driver2d (int width, int height, int populationSize, PsoConfigOptions options) {
 		this.addMouseListener(this);
 		this.setBackground(new Color(255, 255, 255));
 		this.options = options;

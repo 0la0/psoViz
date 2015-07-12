@@ -8,7 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import pso.FitnessDistance;
-import pso.Options;
+import pso.PsoConfigOptions;
 import pso.Particle;
 import pso.Population;
 import pso.Position;
@@ -32,7 +32,7 @@ public class Basic2dDriver extends PopulationDriver {
 		this.fitnessFunction = new FitnessDistance(initGoal.clone());
 		
 		for (int i = 0; i < this.numPopulations; i++) {
-			Options options = new Options();
+			PsoConfigOptions options = new PsoConfigOptions();
 			options.c1 = 0.01f;
 			options.c2 = 0.001f;
 			options.speedLimit = 10.0f;

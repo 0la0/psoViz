@@ -1,6 +1,6 @@
 package pso;
 
-public class Options {
+public class PsoConfigOptions {
 
 	public float c1;
 	public float c2;

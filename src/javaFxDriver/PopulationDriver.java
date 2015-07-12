@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javafx.scene.Node;
 import pso.IFitness;
-import pso.Options;
+import pso.PsoConfigOptions;
 import pso.Population;
 
 /*
@@ -13,7 +13,7 @@ import pso.Population;
 public abstract class PopulationDriver {
 	
 	protected IFitness fitnessFunction;
-	protected ArrayList<Options> opts = new ArrayList<Options>();
+	protected ArrayList<PsoConfigOptions> opts = new ArrayList<PsoConfigOptions>();
 	protected ArrayList<Population> populations = new ArrayList<Population>();
 	
 	protected int numDimensions = 0; //Number of dimensions to represent
@@ -33,7 +33,7 @@ public abstract class PopulationDriver {
 		return val / (size * 1.0);
 	}
 	
-	public Options getOptions (int index) {
+	public PsoConfigOptions getOptions (int index) {
 		if (index < 0 || index >= this.opts.size()) {
 			System.out.println("PopulationDriver.getOptions indexOutOfBounds");
 			return null;

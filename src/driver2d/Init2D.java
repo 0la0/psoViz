@@ -3,7 +3,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import pso.Options;
+import pso.PsoConfigOptions;
 
 
 
@@ -14,7 +14,7 @@ public class Init2D {
 		int w = 900;
 		int h = 700;
 		
-		Options options = new Options();
+		PsoConfigOptions options = new PsoConfigOptions();
 		options.c1 = 0.1f;
 		options.c2 = 0.0001f;
 		options.speedLimit = 10.0f;

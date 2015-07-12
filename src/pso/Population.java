@@ -16,7 +16,7 @@ public class Population {
 	private int numDimensions;
 	private double[] dimWeight;
 	
-	public Population (Position searchSpaceSize, int numParticles, IFitness fitnessFunction, Options options) {
+	public Population (Position searchSpaceSize, int numParticles, IFitness fitnessFunction, PsoConfigOptions options) {
 		this.searchSpaceSize = searchSpaceSize;
 		this.numDimensions = this.searchSpaceSize.getNumDimensions();
 		this.dimWeight = new double[this.numDimensions];

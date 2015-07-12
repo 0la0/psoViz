@@ -1,5 +1,8 @@
 package pso;
 
+import java.util.Arrays;import java.util.concurrent.atomic.AtomicInteger;
+
+
 public class Particle {
 
 	private Position position;
@@ -9,16 +12,15 @@ public class Particle {
 	private Velocity velocity;
 	private double pBestVal = 999999.9f;
 	private IFitness fitnessFunction;
-	private Options options;
+	private PsoConfigOptions options;
 	private int numDimensions;
 	
-	public Particle (Position position, Velocity velocity, IFitness fitnessFunction, Options options) {
+	public Particle (Position position, Velocity velocity, IFitness fitnessFunction, PsoConfigOptions options) {
 		this.position = position;
 		this.velocity = velocity;
 		this.numDimensions = position.getNumDimensions();
 		this.fitnessFunction = fitnessFunction;
 		this.options = options;
-		
 		this.pBest = position.copy();
 		this.lastPosition1 = position.copy();
 		this.lastPosition2 = position.copy();
@@ -33,7 +35,7 @@ public class Particle {
 		return fitness;
 	}
 	
-	public void update (Position gBest, double[] dimWeight) {
+	public void update (Position gBest, double[] dimensionWeight) {
 		if (gBest == null) {
 			System.out.println("gBest is null, exiting now");
 			System.exit(0);
@@ -45,8 +47,9 @@ public class Particle {
 			this.velocity.getVector()[i] += 
 					(this.options.c1 * Math.random() * (this.pBest.get()[i] - this.position.get()[i])) + 
 					(this.options.c2 * Math.random() * (gBest.get()[i] - this.position.get()[i]));
-			this.velocity.getVector()[i] *= dimWeight[i];
+			this.velocity.getVector()[i] *= dimensionWeight[i];
 		}
+		
 		this.applySpeedLimit();
 		this.updateVector();
 	}

@@ -9,7 +9,7 @@ import org.lwjgl.util.vector.Vector3f;
 
 import pso.FitnessDistance;
 import pso.IFitness;
-import pso.Options;
+import pso.PsoConfigOptions;
 import pso.Particle;
 import pso.Population;
 import pso.Position;
@@ -25,13 +25,13 @@ public class DoubleSwarmWorld3D {
 	private Population p1;
 	private Population p2;
 	private IFitness fitnessFunction;
-	private Options options = new Options();
+	private PsoConfigOptions options = new PsoConfigOptions();
 	private int searchSpaceSize = 500;
 	private int doubleSpace = 1000;
 	private int p1Size = 300;
 	private int p2Size = 100;
 	
-	public DoubleSwarmWorld3D (Options options) {
+	public DoubleSwarmWorld3D (PsoConfigOptions options) {
 		this.options = options;
 		
 		Position size = new Position(new int[]{

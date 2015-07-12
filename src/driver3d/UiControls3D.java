@@ -17,7 +17,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import pso.Options;
+import pso.PsoConfigOptions;
 
 
 
@@ -39,9 +39,9 @@ public class UiControls3D extends JPanel{
 	private int width = 420;
 	private int height = 130;
 	
-	private Options options;
+	private PsoConfigOptions options;
 	
-	public UiControls3D(final Options options){
+	public UiControls3D(final PsoConfigOptions options){
 		this.options = options;
 		
 		//---CREATE SLIDER PANEL---//

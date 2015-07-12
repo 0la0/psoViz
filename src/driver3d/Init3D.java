@@ -7,7 +7,7 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
 
-import pso.Options;
+import pso.PsoConfigOptions;
 
 public class Init3D {
 	
@@ -93,7 +93,7 @@ public class Init3D {
 	}
 	
 	public static void main (String[] args) {
-		Options options = new Options();
+		PsoConfigOptions options = new PsoConfigOptions();
 		//options.c1 = 0.1f;
 		//options.c2 = 0.0001f;
 		//options.speedLimit = 10.0f;

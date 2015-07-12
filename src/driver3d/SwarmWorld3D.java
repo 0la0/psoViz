@@ -9,7 +9,7 @@ import org.lwjgl.util.vector.Vector3f;
 
 import pso.FitnessDistance;
 import pso.IFitness;
-import pso.Options;
+import pso.PsoConfigOptions;
 import pso.Particle;
 import pso.Population;
 import pso.Position;
@@ -24,11 +24,11 @@ public class SwarmWorld3D {
 	private ArrayList<Cube> cubes = new ArrayList<Cube>();
 	private Population p;
 	private IFitness fitnessFunction;
-	private Options options = new Options();
+	private PsoConfigOptions options = new PsoConfigOptions();
 	private int searchSpaceSize = 500;
 	private int doubleSpace = 1000;
 	
-	public SwarmWorld3D (Options options) {
+	public SwarmWorld3D (PsoConfigOptions options) {
 		//swarm parameters
 		this.options = options;
 		

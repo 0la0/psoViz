@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import pso.FitnessDistance;
-import pso.Options;
+import pso.PsoConfigOptions;
 import pso.Particle;
 import pso.Population;
 import pso.Position;
@@ -63,7 +63,7 @@ public class Basic3dDriver extends PopulationDriver {
 		
 		//---POPULATION SETUP---//
 		for (int i = 0; i < this.numPopulations; i++) {
-			Options options = new Options();
+			PsoConfigOptions options = new PsoConfigOptions();
 			options.c1 = 0.006f;
 			options.c2 = 0.001f;
 			options.speedLimit = 25;
