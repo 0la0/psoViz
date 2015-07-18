@@ -33,4 +33,13 @@ public class FitnessDistance implements IFitness{
 		return this.goal;
 	}
 	
+	@Override
+	public int getGoalElement (int index) {
+		if (index < 0 || index >= this.goal.length) {
+			System.out.println("Fitness.getGoalElement indexOutOfBounds");
+			return (int) -Math.pow(16, -1);
+		}
+		return this.goal[index];
+	}
+	
 }

@@ -6,6 +6,8 @@ public interface IFitness {
 	
 	public int[] getGoal ();
 	
+	public int getGoalElement (int index);
+	
 	public float calcFitness (Particle p);
 	
 }

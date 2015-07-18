@@ -54,8 +54,8 @@ public class Basic2dDriver extends PopulationDriver {
 			//---RENDER GOAL STATE---//
 			/*
 			g2d.fillOval(
-				this.fitnessFunction.getGoal()[0] - this.goalRadius, 
-				this.fitnessFunction.getGoal()[1] - this.goalRadius, 
+				this.fitnessFunction.getGoalElementElement(0) - this.goalRadius, 
+				this.fitnessFunction.getGoalElementElement(1) - this.goalRadius, 
 				this.goalRadius * 2, this.goalRadius * 2
 			);
 			*/
@@ -84,9 +84,9 @@ public class Basic2dDriver extends PopulationDriver {
 		
 		//---SET INITIAL GOAL STATE COLOR---//
 		goalColor = Color.color(
-			fitnessFunction.getGoal()[2] / 255.0,
-			fitnessFunction.getGoal()[3] / 255.0,
-			fitnessFunction.getGoal()[4] / 255.0
+			fitnessFunction.getGoalElement(2) / 255.0,
+			fitnessFunction.getGoalElement(3) / 255.0,
+			fitnessFunction.getGoalElement(4) / 255.0
 		);
 		
 		//---MOUSE LISTENER TO CHANGE GOAL STATE---//
@@ -100,9 +100,9 @@ public class Basic2dDriver extends PopulationDriver {
 				});
 			}
 			goalColor = Color.color(
-				fitnessFunction.getGoal()[2] / 255.0,
-				fitnessFunction.getGoal()[3] / 255.0,
-				fitnessFunction.getGoal()[4] / 255.0
+				fitnessFunction.getGoalElement(2) / 255.0,
+				fitnessFunction.getGoalElement(3) / 255.0,
+				fitnessFunction.getGoalElement(4) / 255.0
 			);
 			g2d.setFill(goalColor);
 		});

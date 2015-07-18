@@ -141,15 +141,15 @@ public class Basic3dDriver extends PopulationDriver {
 		for (Population p : populations) {
 			for (Particle particle : p.getParticles()) {
 				Color color = Color.color(
-					particle.getPosition().getVector()[3] / (this.size * 1.0),
-					particle.getPosition().getVector()[4] / (this.size * 1.0),
-					particle.getPosition().getVector()[5] / (this.size * 1.0)
+					particle.getPosition().getElement(3) / (this.size * 1.0),
+					particle.getPosition().getElement(4) / (this.size * 1.0),
+					particle.getPosition().getElement(5) / (this.size * 1.0)
 				);
 				Cube box = new Cube(this.particleSize, this.particleSize, this.particleSize, color, color);
 				box.translate(
-					particle.getPosition().getVector()[0],
-					particle.getPosition().getVector()[1],
-					particle.getPosition().getVector()[2]
+					particle.getPosition().getElement(0),
+					particle.getPosition().getElement(1),
+					particle.getPosition().getElement(2)
 				);
 				particles.add(box);
 			}
@@ -177,19 +177,19 @@ public class Basic3dDriver extends PopulationDriver {
 				p.resetGoal(newGoal);
 			}
 			this.goalCube.translate(
-				this.fitnessFunction.getGoal()[0],
-				this.fitnessFunction.getGoal()[1],
-				this.fitnessFunction.getGoal()[2]
+				this.fitnessFunction.getGoalElement(0),
+				this.fitnessFunction.getGoalElement(1),
+				this.fitnessFunction.getGoalElement(2)
 			);
 			
-			double goalR = (this.fitnessFunction.getGoal()[3] + this.size) / (this.size * 2.0);
-			double goalG = (this.fitnessFunction.getGoal()[4] + this.size) / (this.size * 2.0);
-			double goalB = (this.fitnessFunction.getGoal()[5] + this.size) / (this.size * 2.0);
+			double goalR = (this.fitnessFunction.getGoalElement(3) + this.size) / (this.size * 2.0);
+			double goalG = (this.fitnessFunction.getGoalElement(4) + this.size) / (this.size * 2.0);
+			double goalB = (this.fitnessFunction.getGoalElement(5) + this.size) / (this.size * 2.0);
 			this.goalCube.setColor(goalR, goalG, goalB);
 			
-			double rotX = ((this.fitnessFunction.getGoal()[6] + this.size) / (this.size * 2.0) * 360);
-			double rotY = ((this.fitnessFunction.getGoal()[7] + this.size) / (this.size * 2.0) * 360);
-			double rotZ = ((this.fitnessFunction.getGoal()[8] + this.size) / (this.size * 2.0) * 360);
+			double rotX = ((this.fitnessFunction.getGoalElement(6) + this.size) / (this.size * 2.0) * 360);
+			double rotY = ((this.fitnessFunction.getGoalElement(7) + this.size) / (this.size * 2.0) * 360);
+			double rotZ = ((this.fitnessFunction.getGoalElement(8) + this.size) / (this.size * 2.0) * 360);
 			this.goalCube.setRotate(rotX, rotY, rotZ);
 		}
 		
