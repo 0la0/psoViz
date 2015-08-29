@@ -1,6 +1,8 @@
 Particle Swarm Optimization Visualization
 =================
 
+![screenshot](screenshots/Init.PNG)
+
 A Java desktop program for visualizing a basic implementation of the [Particle Swarm Optimization](http://en.wikipedia.org/wiki/Particle_swarm_optimization) search algorithm.
 
 The basic algorithm was created from the pseudocode from [this tutorial](http://www.swarmintelligence.org/tutorials.php). 
@@ -41,7 +43,7 @@ Run:
 java -cp ./bin driver2d/Init2D
 ```
 
-The package "driver3d" is a 3D visualization that uses openGL via the [lwjgl](http://www.lwjgl.org/).
+The package "driver3d" is a 3D visualization that uses openGL via the [lwjgl 2](http://www.lwjgl.org/).
 
 I am currently exploring JavaFX to visualize both 2D and 3D versions, and will likely drop the previous two drivers.
 
