@@ -124,5 +124,13 @@ public class Population {
 		this.dimWeight[index] = val;
 	}
 	
+	public IFitness getFitnessFunction () {
+		return this.fitnessFunction;
+	}
+	
+	//TODO: move to a population driver
+	public double getDimensionFitness (int index) {
+		return this.fitnessFunction.getDimensionFitness(this, index);
+	}
 	
 }

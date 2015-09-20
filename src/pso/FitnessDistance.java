@@ -45,6 +45,7 @@ public class FitnessDistance implements IFitness{
 		return this.goal[index];
 	}
 	
+	@Override
 	public double getDimensionFitness (Population p, int geneIndex) {
 		if (geneIndex < 0 || geneIndex >= p.getParticles().size()) {
 			return -1;

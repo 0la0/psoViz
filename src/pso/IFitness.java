@@ -10,4 +10,6 @@ public interface IFitness {
 	
 	public float calcFitness (Particle p);
 	
+	public double getDimensionFitness (Population p, int index);
+	
 }
