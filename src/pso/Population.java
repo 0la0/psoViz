@@ -33,6 +33,7 @@ public class Population {
 		}
 	}
 	
+	//TODO: move a lot of this logic from the population to a population dirver
 	public double update () {
 		
 		//evaluate fitness and sum all particle fitness values
@@ -63,11 +64,7 @@ public class Population {
 	}
 	
 	private int getPosNeg () {
-		if (Math.random() < 0.5) {
-			return -1;
-		} else {
-			return 1;
-		}
+		return Math.random() < 0.5 ? -1 : 1;
 	}
 	
 	public void resetGoal (int[] goal) {
@@ -126,5 +123,6 @@ public class Population {
 		}
 		this.dimWeight[index] = val;
 	}
+	
 	
 }

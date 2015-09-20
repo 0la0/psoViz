@@ -26,6 +26,12 @@ public class Particle {
 		this.lastPosition2 = position.copy();
 	}
 	
+	public Particle (Position position, Velocity velocity) {
+		this.position = position;
+		this.velocity = velocity;
+		this.numDimensions = position.getNumDimensions();
+	}
+	
 	public float evaluateFitness () {
 		float fitness = fitnessFunction.calcFitness(this);
 		if (fitness < this.pBestVal) {
@@ -110,6 +116,8 @@ public class Particle {
 		return this.lastPosition2;
 	}
 	
+	
+	
 	public void reset () {
 		this.pBestVal = 999999.9f;
 	}
@@ -127,6 +135,10 @@ public class Particle {
 	
 	public void setVelocity (Velocity velocity) {
 		this.velocity = velocity;
+	}
+	
+	public Velocity getVelocity () {
+		return this.velocity;
 	}
 	
 }

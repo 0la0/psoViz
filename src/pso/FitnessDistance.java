@@ -1,16 +1,18 @@
 package pso;
 
+
 public class FitnessDistance implements IFitness{
 
 	private int numDims;
 	private int[] goal;
+	
+	public FitnessDistance () {}
 	
 	public FitnessDistance (int[] goal) {
 		if (goal.length == 0) {
 			System.out.println("goal must have at least one dimension");
 			return;
 		}
-		this.numDims = goal.length;
 		this.setGoal(goal);
 	}
 
@@ -25,6 +27,7 @@ public class FitnessDistance implements IFitness{
 
 	@Override
 	public void setGoal(int[] goal) {
+		this.numDims = goal.length;
 		this.goal = goal;
 	}
 
@@ -40,6 +43,20 @@ public class FitnessDistance implements IFitness{
 			return (int) -Math.pow(16, -1);
 		}
 		return this.goal[index];
+	}
+	
+	public double getDimensionFitness (Population p, int geneIndex) {
+		if (geneIndex < 0 || geneIndex >= p.getParticles().size()) {
+			return -1;
+		}
+		double fitnessSum = p.getParticles().stream()
+				.mapToDouble(individual -> {
+					double difference = individual.getPosition().getVector()[geneIndex] - this.goal[geneIndex];
+					return Math.abs(difference);
+				})
+				.sum();
+		double fitnessVal = (fitnessSum) / (p.getParticles().size() * 1.0);
+		return fitnessVal;
 	}
 	
 }
