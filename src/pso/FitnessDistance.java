@@ -47,9 +47,6 @@ public class FitnessDistance implements IFitness{
 	
 	@Override
 	public double getDimensionFitness (Population p, int geneIndex) {
-		if (geneIndex < 0 || geneIndex >= p.getParticles().size()) {
-			return -1;
-		}
 		double fitnessSum = p.getParticles().stream()
 				.mapToDouble(individual -> {
 					double difference = individual.getPosition().getVector()[geneIndex] - this.goal[geneIndex];
