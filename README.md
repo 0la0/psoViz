@@ -1,11 +1,12 @@
 Particle Swarm Optimization Visualization
 =================
 
+![screenshot](screenshots/3d.PNG)
 ![screenshot](screenshots/Init.PNG)
 
 A Java desktop program for visualizing a basic implementation of the [Particle Swarm Optimization](http://en.wikipedia.org/wiki/Particle_swarm_optimization) search algorithm.
 
-The basic algorithm was created from the pseudocode from [this tutorial](http://www.swarmintelligence.org/tutorials.php). 
+The basic algorithm was created from the pseudocode from [this tutorial](http://www.swarmintelligence.org/tutorials.php).
 
 ###Motivation
 ---
@@ -29,27 +30,9 @@ Proceedings of the 15th annual conference companion on Genetic and evolutionary 
 
 ###Usage:
 ---
-The PSO algorithm is in the PSO package.  Different Java technologies have been used to visualize the algorithm, each separated into different packages.
+The PSO algorithm is in the PSO package, and the visualization tools are in the javaFxDriver package.
 
-To view and interact with the 2D version made with Swing:
-
-Compile: 
-```Shell
-javac -d bin src/pso/* src/driver2d/*
-```
-
-Run:
-```Shell
-java -cp ./bin driver2d/Init2D
-```
-
-The package "driver3d" is a 3D visualization that uses openGL via the [lwjgl 2](http://www.lwjgl.org/).
-
-I am currently exploring JavaFX to visualize both 2D and 3D versions, and will likely drop the previous two drivers.
-
-To view and interact with the JavaFX version:
-
-Compile: 
+Compile:
 ```Shell
 javac -d bin src/pso/* src/javaFxDriver/*
 ```
