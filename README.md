@@ -8,12 +8,12 @@ A Java desktop program for visualizing a basic implementation of the [Particle S
 
 The basic algorithm was created from the pseudocode from [this tutorial](http://www.swarmintelligence.org/tutorials.php).
 
-###Motivation
+### Motivation
 ---
 To explore and experiment with ways of visualizing PSO in high dimensional continuous spaces.
 
 
-###Background / Previous Work
+### Background / Previous Work
 ---
 A paper that explores high dimensional PSO visualization using Sammon's Mapping:
 
@@ -28,7 +28,7 @@ Proceedings of the 15th annual conference companion on Genetic and evolutionary 
 [PDF](http://www.dca.fee.unicamp.br/~tavares/Swarm/gecco2013.pdf)
 
 
-###Usage:
+### Usage:
 ---
 The PSO algorithm is in the PSO package, and the visualization tools are in the javaFxDriver package.
 
@@ -41,3 +41,6 @@ Run:
 ```Shell
 java -cp ./bin javaFxDriver.Init
 ```
+### About
+---
+More project documentation: [http://0la0.github.io/#!/projects/psoViz](http://0la0.github.io/#!/projects/psoViz)
